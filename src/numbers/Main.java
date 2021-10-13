@@ -38,7 +38,7 @@ public class Main {
                         num1 = Long.parseLong(input[0]);
                         num2 = Long.parseLong(input[1]);
                         String inputFilterString = input[2].toUpperCase();
-                        FilterProperties.findFilterResult(inputFilterString);
+                        FilterProperties.getFilterResult(inputFilterString);
                     }
                     default -> throw new IllegalStateException("Unexpected value: " + len);
                 }

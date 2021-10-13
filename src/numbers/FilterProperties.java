@@ -7,7 +7,7 @@ import static numbers.Main.num2;
 
 class FilterProperties {
 
-    static void findFilterResult(String string) {
+    static void getFilterResult(String string) {
         if (num2 <= 0) {
             System.out.println("The second parameter should be a natural number.");
         } else {
