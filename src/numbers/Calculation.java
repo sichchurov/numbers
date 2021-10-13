@@ -67,6 +67,15 @@ class Calculation {
         return false;
     }
 
+    static boolean getSquare(long number) {
+        for (long i = 1; i <= number; i++) {
+            if (number == i * i) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     static void display(long number) {
         System.out.println("Properties of " + number);
         System.out.println("\s buzz: " + getBuzz(number));
@@ -77,6 +86,7 @@ class Calculation {
         System.out.println("\s even: " + getEven(number));
         System.out.println("\s odd: " + getOdd(number));
         System.out.println("\s sunny: " + getSunny(number));
+        System.out.println("\s square: " + getSquare(number));
     }
 
     static void inlineDisplay(long number) {
@@ -88,6 +98,7 @@ class Calculation {
         if (getPalindromic(number)) sb.append("palindromic, ");
         if (getGapful(number)) sb.append("gapful, ");
         if (getSunny(number)) sb.append("sunny, ");
+        if (getSquare(number)) sb.append("square, ");
         if (getEven(number)) sb.append("even.");
         else sb.append("odd.");
         System.out.println(sb);

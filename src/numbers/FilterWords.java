@@ -8,6 +8,6 @@ enum FilterWords {
     DUCK,
     PALINDROMIC,
     GAPFUL,
-    SUNNY
-
+    SUNNY,
+    SQUARE
 }
