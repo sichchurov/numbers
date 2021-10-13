@@ -58,6 +58,15 @@ class Calculation {
         return sum == multi;
     }
 
+    static boolean getSunny(long number) {
+        for (long i = 1; i < number + 1; i++) {
+            if (number + 1 == i * i) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     static void display(long number) {
         System.out.println("Properties of " + number);
         System.out.println("\s buzz: " + getBuzz(number));
@@ -67,6 +76,7 @@ class Calculation {
         System.out.println("\s gapful: " + getGapful(number));
         System.out.println("\s even: " + getEven(number));
         System.out.println("\s odd: " + getOdd(number));
+        System.out.println("\s sunny: " + getSunny(number));
     }
 
     static void inlineDisplay(long number) {
@@ -77,6 +87,7 @@ class Calculation {
         if (getDuck(number)) sb.append("duck, ");
         if (getPalindromic(number)) sb.append("palindromic, ");
         if (getGapful(number)) sb.append("gapful, ");
+        if (getSunny(number)) sb.append("sunny, ");
         if (getEven(number)) sb.append("even.");
         else sb.append("odd.");
         System.out.println(sb);

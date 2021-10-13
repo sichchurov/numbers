@@ -16,6 +16,7 @@ public class Main {
         System.out.println("\t * the first parameter represents a starting number;");
         System.out.println("\t * the second parameter shows how many consecutive numbers are to be printed;");
         System.out.println("\s - two natural numbers and a property to search for;");
+        System.out.println("\s - two natural numbers and two properties to search for;");
         System.out.println("\s - separate the parameters with one space;");
         System.out.println("\s - enter 0 to exit");
         while (loop) {

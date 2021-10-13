@@ -19,6 +19,7 @@ class FilterProperties {
                 case "SPY" -> findSpyNumber(num1, num2);
                 case "GAPFUL" -> findGapfulNumber(num1, num2);
                 case "PALINDROMIC" -> findPalindromicNumber(num1, num2);
+                case "SUNNY" -> findSunnyNumber(num1, num2);
                 default -> {
                     System.out.println("The property " + string + " is wrong");
                     System.out.println("Available properties: " + Arrays.toString(FilterWords.values()));
@@ -98,6 +99,17 @@ class FilterProperties {
         long i;
         for (i = 0; i < counter; ) {
             if (Calculation.getBuzz(number)) {
+                Calculation.inlineDisplay(number);
+                i++;
+            }
+            number++;
+        }
+    }
+
+    static void findSunnyNumber(long number, long counter) {
+        long i;
+        for (i = 0; i < counter; ) {
+            if (Calculation.getSunny(number)) {
                 Calculation.inlineDisplay(number);
                 i++;
             }

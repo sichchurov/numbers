@@ -7,6 +7,7 @@ enum FilterWords {
     BUZZ,
     DUCK,
     PALINDROMIC,
-    GAPFUL
+    GAPFUL,
+    SUNNY
 
 }
