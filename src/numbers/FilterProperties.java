@@ -2,8 +2,7 @@ package numbers;
 
 import java.util.Arrays;
 
-import static numbers.Main.num1;
-import static numbers.Main.num2;
+import static numbers.Main.*;
 
 class FilterProperties {
 
@@ -11,23 +10,22 @@ class FilterProperties {
         if (num2 <= 0) {
             System.out.println("The second parameter should be a natural number.");
         } else {
-            switch (string) {
-                case "ODD" -> findOddNumber(num1, num2);
-                case "EVEN" -> findEvenNumber(num1, num2);
-                case "DUCK" -> findDuckNumber(num1, num2);
-                case "BUZZ" -> findBuzzNumber(num1, num2);
-                case "SPY" -> findSpyNumber(num1, num2);
-                case "GAPFUL" -> findGapfulNumber(num1, num2);
-                case "PALINDROMIC" -> findPalindromicNumber(num1, num2);
-                case "SUNNY" -> findSunnyNumber(num1, num2);
-                case "SQUARE" -> findSquareNumber(num1, num2);
+            switch (FilterWords.valueOf(string)) {
+                case SPY -> findSpyNumber(num1, num2);
+                case BUZZ -> findBuzzNumber(num1, num2);
+                case PALINDROMIC -> findPalindromicNumber(num1, num2);
+                case GAPFUL -> findGapfulNumber(num1, num2);
+                case DUCK -> findDuckNumber(num1, num2);
+                case SUNNY -> findSunnyNumber(num1, num2);
+                case SQUARE -> findSquareNumber(num1, num2);
+                case EVEN -> findEvenNumber(num1, num2);
+                case ODD -> findOddNumber(num1, num2);
                 default -> {
                     System.out.println("The property " + string + " is wrong");
                     System.out.println("Available properties: " + Arrays.toString(FilterWords.values()));
                 }
             }
         }
-
     }
 
     static void findOddNumber(long number, long counter) {
