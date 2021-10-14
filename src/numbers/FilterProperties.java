@@ -7,36 +7,27 @@ import static numbers.Main.num2;
 
 class FilterProperties {
 
-    static void getFilterResult(FilterWords filterWords) {
+    static void getFilterResult(String string) {
         if (num2 <= 0) {
             System.out.println("The second parameter should be a natural number.");
         } else {
-
-            switch (filterWords) {
-                case ODD -> findOddNumber(num1, num2);
-                case EVEN -> findEvenNumber(num1, num2);
-                case DUCK -> findDuckNumber(num1, num2);
-                case BUZZ -> findBuzzNumber(num1, num2);
-                case SPY -> findSpyNumber(num1, num2);
-                case GAPFUL -> findGapfulNumber(num1, num2);
-                case PALINDROMIC -> findPalindromicNumber(num1, num2);
-                case SUNNY -> findSunnyNumber(num1, num2);
-                case SQUARE -> findSquareNumber(num1, num2);
+            switch (string) {
+                case "ODD" -> findOddNumber(num1, num2);
+                case "EVEN" -> findEvenNumber(num1, num2);
+                case "DUCK" -> findDuckNumber(num1, num2);
+                case "BUZZ" -> findBuzzNumber(num1, num2);
+                case "SPY" -> findSpyNumber(num1, num2);
+                case "GAPFUL" -> findGapfulNumber(num1, num2);
+                case "PALINDROMIC" -> findPalindromicNumber(num1, num2);
+                case "SUNNY" -> findSunnyNumber(num1, num2);
+                case "SQUARE" -> findSquareNumber(num1, num2);
                 default -> {
-                    System.out.println("The property " + filterWords + " is wrong");
+                    System.out.println("The property " + string + " is wrong");
                     System.out.println("Available properties: " + Arrays.toString(FilterWords.values()));
                 }
             }
         }
-    }
 
-    static void getSeveralFilterResult(String filterWord1, String filterWord2) {
-        if (FilterWords.valueOf(filterWord1).equals(FilterWords.valueOf(filterWord2))) {
-            getFilterResult(FilterWords.valueOf(filterWord1));
-        } else {
-            System.out.printf("The request contains mutually exclusive properties %s, %s: ", filterWord1, filterWord2);
-            System.out.println("There are no numbers with these properties.");
-        }
     }
 
     static void findOddNumber(long number, long counter) {

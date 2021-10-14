@@ -38,17 +38,8 @@ public class Main {
                     case 3 -> {
                         num1 = Long.parseLong(input[0]);
                         num2 = Long.parseLong(input[1]);
-                        String inputFilterParameter1 = input[2].toUpperCase();
-                        FilterProperties.getFilterResult(FilterWords.valueOf(inputFilterParameter1));
-                    }
-                    case 4 -> {
-                        num1 = Long.parseLong(input[0]);
-                        num2 = Long.parseLong(input[1]);
-                        String inputFilterParameter1 = input[2].toUpperCase();
-                        String inputFilterParameter2 = input[3].toUpperCase();
-                        FilterProperties.getSeveralFilterResult(inputFilterParameter1, inputFilterParameter2);
-                        System.out.println(FilterWords.valueOf(inputFilterParameter2));
-
+                        String inputFilterString = input[2].toUpperCase();
+                        FilterProperties.getFilterResult(inputFilterString);
                     }
                     default -> throw new IllegalStateException("Unexpected value: " + len);
                 }
