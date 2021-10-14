@@ -111,7 +111,7 @@ class Calculation {
             System.out.println("Goodbye");
             loop = false;
         } else {
-            Calculation.display(number);
+            display(number);
         }
     }
 
@@ -120,7 +120,7 @@ class Calculation {
             System.out.println("The second parameter should be a natural number.");
         } else {
             for (long i = 0; i < counter; i++) {
-                Calculation.inlineDisplay(number++);
+                inlineDisplay(number++);
             }
         }
     }
