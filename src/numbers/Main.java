@@ -1,12 +1,18 @@
 package numbers;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     static final Scanner scanner = new Scanner(System.in);
+
     static long num1;
     static long num2;
     static boolean loop = true;
+    static String[] arrayProp = {"ODD", "EVEN", "SPY", "PALINDROMIC", "BUZZ", "DUCK", "GAPFUL", "SUNNY", "SQUARE"};
+    static List<String> listProp = Arrays.asList(arrayProp);
+
 
     public static void main(String[] args) {
         System.out.println("Welcome to Amazing Numbers!");
@@ -23,6 +29,7 @@ public class Main {
             System.out.println("Enter a request:");
             String[] input = scanner.nextLine().split(" ");
             int len = input.length;
+
 
             try { // if a user inputs not a natural num as a parameter
                 switch (len) {
@@ -46,10 +53,9 @@ public class Main {
                         num2 = Long.parseLong(input[1]);
                         String fPar1 = input[2].toUpperCase();
                         String fPar2 = input[3].toUpperCase();
-                        
-                        FilterProperties.getFilterResult(fPar1);
-                        FilterProperties.getFilterResult(fPar2);
+                        FilterProperties.getFilterResult(num1, num2, fPar1, fPar2);
                     }
+
                     default -> throw new IllegalStateException("Unexpected value: " + len);
                 }
             } catch (NumberFormatException e) {
