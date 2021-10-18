@@ -2,6 +2,7 @@ package numbers;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -70,21 +71,11 @@ public class Main {
         }
 
         static boolean getSunny(long number) {
-            for (long i = 1; i < number + 1; i++) {
-                if (number + 1 == i * i) {
-                    return true;
-                }
-            }
-            return false;
+            return Math.sqrt((double) number + 1) % 1 == 0;
         }
 
         static boolean getSquare(long number) {
-            for (long i = 1; i <= number; i++) {
-                if (number == i * i) {
-                    return true;
-                }
-            }
-            return false;
+            return Math.sqrt(number) % 1 == 0;
         }
 
         static void display(long number) {
@@ -237,6 +228,11 @@ public class Main {
         static void getWarning(String s1, String s2) {
             System.out.printf("The request contains mutually exclusive properties: [%s, %s] \n", s1, s2);
             System.out.println("There are no numbers with these properties.");
+        }
+
+        static void getWarningSingle(String s) {
+            System.out.printf("The property [%s] is wrong. \n", s);
+            System.out.println("Available properties: " + listProp);
         }
 
         static void getFilterResultWithTwoWords(long number, long counter, String word1, String word2) {
@@ -972,9 +968,15 @@ public class Main {
                     }
                     default -> throw new IllegalStateException("Unexpected value: " + word1);
                 }
-            } else {
-                System.out.printf("The property [%s, %s] are wrong. \n", word1, word2);
+            } else if (!listProp.contains(word1) && !listProp.contains(word2)) {
+                System.out.printf("The properties [%s, %s] are wrong. \n", word1, word2);
                 System.out.println("Available properties: " + listProp);
+            } else {
+                if (!listProp.contains(word1)) {
+                    getWarningSingle(word1);
+                } else {
+                    getWarningSingle(word2);
+                }
             }
         }
     }
