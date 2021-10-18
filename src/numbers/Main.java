@@ -46,7 +46,7 @@ public class Main {
                         num1 = Long.parseLong(input[0]);
                         num2 = Long.parseLong(input[1]);
                         String fPar1 = input[2].toUpperCase();
-                        FilterProperties.getFilterResult(fPar1);
+                        FilterProperties.getFilterResult(num1, num2, fPar1);
                     }
                     case 4 -> {
                         num1 = Long.parseLong(input[0]);
@@ -59,7 +59,7 @@ public class Main {
                     default -> throw new IllegalStateException("Unexpected value: " + len);
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Both parameter should be a natural number.");
+                System.out.println("The second parameter should be a natural number.");
             }
         }
     }
