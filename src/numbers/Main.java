@@ -14,7 +14,7 @@ public class Main {
     static List<String> listProp = Arrays.asList(arrayProp);
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NumberFormatException {
         System.out.println("Welcome to Amazing Numbers!");
         System.out.println("Supported requests: ");
         System.out.println("\s - enter a natural number to know its properties;");
@@ -53,13 +53,12 @@ public class Main {
                         num2 = Long.parseLong(input[1]);
                         String fPar1 = input[2].toUpperCase();
                         String fPar2 = input[3].toUpperCase();
-                        FilterProperties.getFilterResult(num1, num2, fPar1, fPar2);
+                        FilterProperties.getFilterResultWithTwoWords(num1, num2, fPar1, fPar2);
                     }
-
                     default -> throw new IllegalStateException("Unexpected value: " + len);
                 }
             } catch (NumberFormatException e) {
-                System.out.println("The second parameter should be a natural number.");
+                System.out.println("Both parameters should be a natural number.");
             }
         }
     }

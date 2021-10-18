@@ -105,7 +105,7 @@ class Calculation {
     }
 
     static void getSingleNumberResult(long number) {
-        if (number < 0) {
+        if (number < 0 ) {
             System.out.println("The first parameter should be a natural number or zero.");
         } else if (number == 0) {
             System.out.println("Goodbye");

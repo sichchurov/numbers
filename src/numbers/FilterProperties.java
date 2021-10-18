@@ -103,16 +103,16 @@ class FilterProperties {
         System.out.println("There are no numbers with these properties.");
     }
 
-    static void getFilterResult(long number, long counter, String word1, String word2) throws IllegalStateException {
+    static void getFilterResultWithTwoWords(long number, long counter, String word1, String word2) {
         if (counter <= 0) {
             System.out.println("The second parameter should be a natural number.");
-        } else if (word1.equals("EVEN") && word2.equals("ODD")) {
+        } else if (word1.equals("EVEN") && word2.equals("ODD") || word1.equals("ODD") && word2.equals("EVEN")) {
             getWarning(word1, word2);
-        } else if (word1.equals("DUCK") && word2.equals("SPY")) {
+        } else if (word1.equals("DUCK") && word2.equals("SPY") || word1.equals("SPY") && word2.equals("DUCK")) {
             getWarning(word1, word2);
-        } else if (word1.equals("SUNNY") && word2.equals("SQUARE")) {
+        } else if (word1.equals("SUNNY") && word2.equals("SQUARE") || word1.equals("SQUARE") && word2.equals("SUNNY")) {
             getWarning(word1, word2);
-        } else if (listProp.contains(word1)) {
+        } else if (listProp.contains(word1) && listProp.contains(word2)) {
             switch (word1) {
                 case "SPY" -> {
                     switch (word2) {
@@ -890,10 +890,8 @@ class FilterProperties {
                 }
             }
         } else {
-            System.out.printf("The property [%s, %s] is wrong. \n", word1, word2);
+            System.out.printf("The property [%s, %s] are wrong. \n", word1, word2);
             System.out.println("Available properties: " + listProp);
         }
     }
-
-
 }
