@@ -1,4 +1,6 @@
-package numbers.good_examples_stage_5;
+package test.good_examples_stage_5;
+
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
