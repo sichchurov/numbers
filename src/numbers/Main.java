@@ -1,25 +1,23 @@
 package numbers;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
-public class Main {
-    static final Scanner scanner = new Scanner(System.in);
+import static numbers.Main.Properties.*;
 
+public class Main {
+
+    static final Scanner scanner = new Scanner(System.in);
     static long num1;
     static int num2;
     static boolean loop = true;
     static String[] arrayProp = {"ODD", "EVEN", "SPY", "PALINDROMIC", "BUZZ", "DUCK", "GAPFUL", "SUNNY", "SQUARE"};
-    static List<String> listProp = Arrays.asList(arrayProp);
-
-
 
     static void showSingleResult(long number) {
         System.out.println("Properties of " + number);
         System.out.println("\s buzz: " + Properties.isBuzz(number));
         System.out.println("\s duck: " + Properties.isDuck(number));
-        System.out.println("\s spy: " + Properties.isSpy(number));
+        System.out.println("\s spy: " + isSpy(number));
         System.out.println("\s palindromic: " + Properties.isPalindromic(number));
         System.out.println("\s gapful: " + Properties.isGapful(number));
         System.out.println("\s even: " + Properties.isEven(number));
@@ -31,7 +29,7 @@ public class Main {
     static void showMultiplyResult(long number) {
         StringBuilder sb = new StringBuilder();
         sb.append(number).append(" is ");
-        if (Properties.isSpy(number)) sb.append("spy, ");
+        if (isSpy(number)) sb.append("spy, ");
         if (Properties.isBuzz(number)) sb.append("buzz, ");
         if (Properties.isDuck(number)) sb.append("duck, ");
         if (Properties.isPalindromic(number)) sb.append("palindromic, ");
@@ -44,7 +42,7 @@ public class Main {
     }
 
     static void getSingleNumberResult(long number) {
-        if (number < 0 ) {
+        if (number < 0) {
             System.out.println("The first parameter should be a natural number or zero.");
         } else if (number == 0) {
             System.out.println("Goodbye");
@@ -64,772 +62,177 @@ public class Main {
         }
     }
 
+    static class Properties {
 
-
-
-
-
-    static class FilterProperties {
-
-
-
-        static void getWarning(String s1, String s2) {
-            System.out.printf("The request contains mutually exclusive properties: [%s, %s] \n", s1, s2);
-            System.out.println("There are no numbers with these properties.");
+        static boolean isEven(long number) {
+            return number % 2 == 0;
         }
 
-        static void getWarningSingle(String s) {
-            System.out.printf("The property [%s] is wrong. \n", s);
-            System.out.println("Available properties: " + listProp);
+        static boolean isOdd(long number) {
+            return number % 2 != 0;
         }
 
-        static void getFilterResultWithTwoWords(long number, long counter, String word1, String word2) {
-            if (counter <= 0) {
-                System.out.println("The second parameter should be a natural number.");
-            } else if (word1.equals("EVEN") && word2.equals("ODD") || word1.equals("ODD") && word2.equals("EVEN")) {
-                getWarning(word1, word2);
-            } else if (word1.equals("DUCK") && word2.equals("SPY") || word1.equals("SPY") && word2.equals("DUCK")) {
-                getWarning(word1, word2);
-            } else if (word1.equals("SUNNY") && word2.equals("SQUARE") || word1.equals("SQUARE") && word2.equals("SUNNY")) {
-                getWarning(word1, word2);
-            } else if (listProp.contains(word1) && listProp.contains(word2)) {
-                switch (word1) {
-                    case "SPY" -> {
-                        switch (word2) {
-                            case "SPY" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSpy(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "BUZZ" -> {
-                                while (counter > 0) {
-                                    if (Properties.isBuzz(number) && Properties.isSpy(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "PALINDROMIC" -> {
-                                while (counter > 0) {
-                                    if (Properties.isPalindromic(number) && Properties.isSpy(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "GAPFUL" -> {
-                                while (counter > 0) {
-                                    if (Properties.isGapful(number) && Properties.isSpy(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "SUNNY" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSunny(number) && Properties.isSpy(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "SQUARE" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSquare(number) && Properties.isSpy(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "EVEN" -> {
-                                while (counter > 0) {
-                                    if (Properties.isEven(number) && Properties.isSpy(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "ODD" -> {
-                                while (counter > 0) {
-                                    if (Properties.isOdd(number) && Properties.isSpy(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            default -> throw new IllegalStateException("Unexpected value: " + word2);
-                        }
-                    }
-                    case "BUZZ" -> {
-                        switch (word2) {
-                            case "SPY" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSpy(number) && Properties.isBuzz(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "BUZZ" -> {
-                                while (counter > 0) {
-                                    if (Properties.isBuzz(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "PALINDROMIC" -> {
-                                while (counter > 0) {
-                                    if (Properties.isPalindromic(number) && Properties.isBuzz(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "GAPFUL" -> {
-                                while (counter > 0) {
-                                    if (Properties.isGapful(number) && Properties.isBuzz(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "DUCK" -> {
-                                while (counter > 0) {
-                                    if (Properties.isDuck(number) && Properties.isBuzz(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "SUNNY" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSunny(number) && Properties.isBuzz(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "SQUARE" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSquare(number) && Properties.isBuzz(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "EVEN" -> {
-                                while (counter > 0) {
-                                    if (Properties.isEven(number) && Properties.isBuzz(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "ODD" -> {
-                                while (counter > 0) {
-                                    if (Properties.isOdd(number) && Properties.isBuzz(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            default -> throw new IllegalStateException("Unexpected value: " + word2);
-                        }
-                    }
-                    case "PALINDROMIC" -> {
-                        switch (word2) {
-                            case "SPY" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSpy(number) && Properties.isPalindromic(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "BUZZ" -> {
-                                while (counter > 0) {
-                                    if (Properties.isBuzz(number) && Properties.isPalindromic(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "PALINDROMIC" -> {
-                                while (counter > 0) {
-                                    if (Properties.isPalindromic(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "GAPFUL" -> {
-                                while (counter > 0) {
-                                    if (Properties.isGapful(number) && Properties.isPalindromic(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "DUCK" -> {
-                                while (counter > 0) {
-                                    if (Properties.isDuck(number) && Properties.isPalindromic(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "SUNNY" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSunny(number) && Properties.isPalindromic(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "SQUARE" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSquare(number) && Properties.isPalindromic(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "EVEN" -> {
-                                while (counter > 0) {
-                                    if (Properties.isEven(number) && Properties.isPalindromic(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "ODD" -> {
-                                while (counter > 0) {
-                                    if (Properties.isOdd(number) && Properties.isPalindromic(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            default -> throw new IllegalStateException("Unexpected value: " + word2);
-                        }
-                    }
-                    case "GAPFUL" -> {
-                        switch (word2) {
-                            case "SPY" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSpy(number) && Properties.isGapful(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "BUZZ" -> {
-                                while (counter > 0) {
-                                    if (Properties.isBuzz(number) && Properties.isGapful(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "PALINDROMIC" -> {
-                                while (counter > 0) {
-                                    if (Properties.isPalindromic(number) && Properties.isGapful(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "GAPFUL" -> {
-                                while (counter > 0) {
-                                    if (Properties.isGapful(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "DUCK" -> {
-                                while (counter > 0) {
-                                    if (Properties.isDuck(number) && Properties.isGapful(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "SUNNY" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSunny(number) && Properties.isGapful(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "SQUARE" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSquare(number) && Properties.isGapful(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "EVEN" -> {
-                                while (counter > 0) {
-                                    if (Properties.isEven(number) && Properties.isGapful(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "ODD" -> {
-                                while (counter > 0) {
-                                    if (Properties.isOdd(number) && Properties.isGapful(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            default -> throw new IllegalStateException("Unexpected value: " + word2);
-                        }
-                    }
-                    case "DUCK" -> {
-                        switch (word2) {
-                            case "BUZZ" -> {
-                                while (counter > 0) {
-                                    if (Properties.isBuzz(number) && Properties.isDuck(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "PALINDROMIC" -> {
-                                while (counter > 0) {
-                                    if (Properties.isPalindromic(number) && Properties.isDuck(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "GAPFUL" -> {
-                                while (counter > 0) {
-                                    if (Properties.isGapful(number) && Properties.isDuck(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "DUCK" -> {
-                                while (counter > 0) {
-                                    if (Properties.isDuck(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "SUNNY" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSunny(number) && Properties.isDuck(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "SQUARE" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSquare(number) && Properties.isDuck(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "EVEN" -> {
-                                while (counter > 0) {
-                                    if (Properties.isEven(number) && Properties.isDuck(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "ODD" -> {
-                                while (counter > 0) {
-                                    if (Properties.isOdd(number) && Properties.isDuck(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            default -> throw new IllegalStateException("Unexpected value: " + word2);
-                        }
-                    }
-                    case "SUNNY" -> {
-                        switch (word2) {
-                            case "SPY" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSpy(number) && Properties.isSunny(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "BUZZ" -> {
-                                while (counter > 0) {
-                                    if (Properties.isBuzz(number) && Properties.isSunny(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "PALINDROMIC" -> {
-                                while (counter > 0) {
-                                    if (Properties.isPalindromic(number) && Properties.isSunny(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "GAPFUL" -> {
-                                while (counter > 0) {
-                                    if (Properties.isGapful(number) && Properties.isSunny(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "DUCK" -> {
-                                while (counter > 0) {
-                                    if (Properties.isDuck(number) && Properties.isSunny(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "SUNNY" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSunny(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "EVEN" -> {
-                                while (counter > 0) {
-                                    if (Properties.isEven(number) && Properties.isSunny(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "ODD" -> {
-                                while (counter > 0) {
-                                    if (Properties.isOdd(number) && Properties.isSunny(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            default -> throw new IllegalStateException("Unexpected value: " + word2);
-                        }
-                    }
-                    case "SQUARE" -> {
-                        switch (word2) {
-                            case "SPY" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSpy(number) && Properties.isSquare(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "BUZZ" -> {
-                                while (counter > 0) {
-                                    if (Properties.isBuzz(number) && Properties.isSquare(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "PALINDROMIC" -> {
-                                while (counter > 0) {
-                                    if (Properties.isPalindromic(number) && Properties.isSquare(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "GAPFUL" -> {
-                                while (counter > 0) {
-                                    if (Properties.isGapful(number) && Properties.isSquare(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "DUCK" -> {
-                                while (counter > 0) {
-                                    if (Properties.isDuck(number) && Properties.isSquare(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "SQUARE" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSquare(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "EVEN" -> {
-                                while (counter > 0) {
-                                    if (Properties.isEven(number) && Properties.isSquare(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "ODD" -> {
-                                while (counter > 0) {
-                                    if (Properties.isOdd(number) && Properties.isSquare(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            default -> throw new IllegalStateException("Unexpected value: " + word2);
-                        }
-                    }
-                    case "EVEN" -> {
-                        switch (word2) {
-                            case "SPY" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSpy(number) && Properties.isEven(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "BUZZ" -> {
-                                while (counter > 0) {
-                                    if (Properties.isBuzz(number) && Properties.isEven(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "PALINDROMIC" -> {
-                                while (counter > 0) {
-                                    if (Properties.isPalindromic(number) && Properties.isEven(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "GAPFUL" -> {
-                                while (counter > 0) {
-                                    if (Properties.isGapful(number) && Properties.isEven(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "DUCK" -> {
-                                while (counter > 0) {
-                                    if (Properties.isDuck(number) && Properties.isEven(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "SUNNY" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSunny(number) && Properties.isEven(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "SQUARE" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSquare(number) && Properties.isEven(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "EVEN" -> {
-                                while (counter > 0) {
-                                    if (Properties.isEven(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            default -> throw new IllegalStateException("Unexpected value: " + word2);
-                        }
-                    }
-                    case "ODD" -> {
-                        switch (word2) {
-                            case "SPY" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSpy(number) && Properties.isOdd(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "BUZZ" -> {
-                                while (counter > 0) {
-                                    if (Properties.isBuzz(number) && Properties.isOdd(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "PALINDROMIC" -> {
-                                while (counter > 0) {
-                                    if (Properties.isPalindromic(number) && Properties.isOdd(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "GAPFUL" -> {
-                                while (counter > 0) {
-                                    if (Properties.isGapful(number) && Properties.isOdd(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "DUCK" -> {
-                                while (counter > 0) {
-                                    if (Properties.isDuck(number) && Properties.isOdd(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "SUNNY" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSunny(number) && Properties.isOdd(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "SQUARE" -> {
-                                while (counter > 0) {
-                                    if (Properties.isSquare(number) && Properties.isOdd(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            case "ODD" -> {
-                                while (counter > 0) {
-                                    if (Properties.isOdd(number)) {
-                                        showMultiplyResult(number);
-                                        counter--;
-                                    }
-                                    number++;
-                                }
-                            }
-                            default -> throw new IllegalStateException("Unexpected value: " + word2);
-                        }
-                    }
-                    default -> throw new IllegalStateException("Unexpected value: " + word1);
+        static boolean isBuzz(long number) {
+            return number % 7 == 0 || number % 10 == 7;
+        }
+
+        static boolean isDuck(long number) {
+            while (number > 0) {
+                if (number % 10 == 0) {
+                    return true;
                 }
-            } else if (!listProp.contains(word1) && !listProp.contains(word2)) {
-                System.out.printf("The properties [%s, %s] are wrong. \n", word1, word2);
-                System.out.println("Available properties: " + listProp);
-            } else {
-                if (!listProp.contains(word1)) {
-                    getWarningSingle(word1);
-                } else {
-                    getWarningSingle(word2);
+                number /= 10;
+            }
+            return false;
+        }
+
+        static boolean isPalindromic(long number) {
+            String str = Long.toString(number);
+            for (int i = 0; i < str.length(); i++) {
+                if (str.charAt(i) != str.charAt(str.length() - 1 - i)) {
+                    return false;
                 }
             }
+            return true;
+        }
+
+        static boolean isGapful(long number) {
+            String str = Long.toString(number);
+            if (number < 100) {
+                return false;
+            } else {
+                long num = Long.parseLong("" + str.charAt(0) + str.charAt(str.length() - 1));
+                return number % num == 0;
+            }
+        }
+
+        static boolean isSpy(long number) {
+            long sum = 0;
+            long multi = 1;
+            while (number > 0) {
+                long remainder = number % 10;
+                sum += remainder;
+                multi *= remainder;
+                number /= 10;
+            }
+            return sum == multi;
+        }
+
+        static boolean isSunny(long number) {
+            return Math.sqrt((double) number + 1) % 1 == 0;
+        }
+
+        static boolean isSquare(long number) {
+            return Math.sqrt(number) % 1 == 0;
         }
     }
 
-    public static void main(String[] args) throws NumberFormatException {
+    static class Filter {
+
+        static boolean isProperty(String property) {
+            String[] properties = {"ODD", "EVEN", "SPY", "PALINDROMIC", "BUZZ", "DUCK", "GAPFUL", "SUNNY", "SQUARE"};
+            for (String s : properties) {
+                if (s.equals(property)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        static boolean whichProperty(long number, String property) {
+            switch (property) {
+                case "SPY" -> {
+                    return isSpy(number);
+                }
+                case "BUZZ" -> {
+                    return isBuzz(number);
+                }
+                case "PALINDROMIC" -> {
+                    return isPalindromic(number);
+                }
+                case "GAPFUL" -> {
+                    return isGapful(number);
+                }
+                case "SUNNY" -> {
+                    return isSunny(number);
+                }
+                case "SQUARE" -> {
+                    return isSquare(number);
+                }
+                case "EVEN" -> {
+                    return isEven(number);
+                }
+                case "ODD" -> {
+                    return isOdd(number);
+                }
+                default -> {
+                    return false;
+                }
+            }
+        }
+
+        static void showWarningOneProperty(String property) {
+            System.out.printf("The property [%s] is wrong. \n", property);
+            System.out.println("Available properties: " + Arrays.toString(arrayProp));
+        }
+
+        static void showWarningMoreProperties(String property, String propertyTwo) {
+            System.out.printf("The properties [%s, %s] are wrong. \n", property, propertyTwo);
+            System.out.println("Available properties: " + Arrays.toString(arrayProp));
+        }
+
+        static void showExclusivesWarnings(String property, String propertyTwo) {
+            System.out.printf("The request contains mutually exclusive properties: [%s, %s] \n", property, propertyTwo);
+            System.out.println("There are no numbers with these properties.");
+        }
+
+        static void showFilteredResultWithOneWord(long number, int count, String property) {
+            if (count <= 0) {
+                System.out.println("The second parameter should be a natural number.");
+            } else if (isProperty(property)) {
+                while (count > 0) {
+                    if (whichProperty(number, property)) {
+                        showMultiplyResult(number);
+                        count--;
+                    }
+                    number++;
+                }
+            } else {
+                showWarningOneProperty(property);
+            }
+        }
+
+        static boolean isExclusive(String property, String propertyTwo) {
+            if (property.equals("EVEN") && propertyTwo.equals("ODD") || property.equals("ODD") && propertyTwo.equals("EVEN")) {
+                return false;
+            } else if (property.equals("DUCK") && propertyTwo.equals("SPY") || property.equals("SPY") && propertyTwo.equals("DUCK")) {
+                return false;
+            } else {
+                return !property.equals("SUNNY") && !propertyTwo.equals("SQUARE") || !property.equals("SQUARE") && !propertyTwo.equals("SUNNY");
+            }
+        }
+
+        static void showFilteredResultMoreOneWord(long number, int count, String property, String propertyTwo) {
+            if (count <= 0) {
+                System.out.println("The second parameter should be a natural number.");
+            } else if (!isExclusive(property, propertyTwo)) {
+                showExclusivesWarnings(property, propertyTwo);
+            } else if (isProperty(property)) {
+                while (count > 0) {
+                    if (whichProperty(number, property) && whichProperty(number, propertyTwo)) {
+                        showMultiplyResult(number);
+                        count--;
+                    }
+                    number++;
+                }
+            } else {
+                showWarningMoreProperties(property, propertyTwo);
+            }
+        }
+
+    }
+
+    public static void main(String[] args) {
         System.out.println("Welcome to Amazing Numbers!");
         System.out.println("Supported requests: ");
         System.out.println("\s - enter a natural number to know its properties;");
@@ -866,9 +269,9 @@ public class Main {
                     case 4 -> {
                         num1 = Long.parseLong(input[0]);
                         num2 = Integer.parseInt(input[1]);
-                        String fPar1 = input[2].toUpperCase();
-                        String fPar2 = input[3].toUpperCase();
-                        Filter.showFilteredResultWithOneWord(num1, num2, fPar1, fPar2);
+                        String property = input[2].toUpperCase();
+                        String propertyTwo = input[3].toUpperCase();
+                        Filter.showFilteredResultMoreOneWord(num1, num2, property, propertyTwo);
                     }
                     default -> throw new IllegalStateException("Unexpected value: " + len);
                 }
