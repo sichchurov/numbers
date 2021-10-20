@@ -1,7 +1,5 @@
 package test.good_examples_stage_5;
 
-
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -71,6 +69,9 @@ public class Main_2 {
                 printFourthRequest(firstParameter, secondParameter, firstProperty, secondProperty);
             }
         }
+    
+        scanner.close();
+    
     }
 
     public static void displayMenu() {

@@ -40,7 +40,7 @@ public class Main_1 {
             }
         }
         System.out.println("Goodbye!");
-
+        scanner.close();
     }
 
     public static boolean isNatural(long number) {
@@ -122,8 +122,7 @@ public class Main_1 {
         return isSquare(x);
     }
 
-
-
+    
     public static void propertiesOf(long number) {
         if (isEven(number)) {
             System.out.print("even, ");
@@ -195,6 +194,16 @@ public class Main_1 {
         }
     }
 
+    public static boolean checkIsProperty(String property) {
+        String[] properties = {"EVEN", "ODD", "BUZZ", "DUCK", "PALINDROMIC", "GAPFUL", "SPY", "SQUARE", "SUNNY"};
+        for (String s : properties) {
+            if (s.equals(property)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void withPropertyVer1 (long number, long numberOf, String property) {
         if (checkIsProperty(property)) {
             int i = 0;
@@ -224,24 +233,12 @@ public class Main_1 {
         }
     }
 
-
-
     public static boolean checkMutuallyExclusive(String property, String property$) {
         if (property.equals("ODD") && property$.equals("EVEN") || property.equals("EVEN") && property$.equals("ODD")) {
             return false;
         } else if (property.equals("DUCK") && property$.equals("SPY") || property.equals("SPY") && property$.equals("DUCK")) {
             return false;
         }else return (!property.equals("SUNNY") || !property$.equals("SQUARE")) && (!property.equals("SQUARE") || !property$.equals("SUNNY"));
-    }
-
-    public static boolean checkIsProperty(String property) {
-        String[] properties = {"EVEN", "ODD", "BUZZ", "DUCK", "PALINDROMIC", "GAPFUL", "SPY", "SQUARE", "SUNNY"};
-        for (String s : properties) {
-            if (s.equals(property)) {
-                return true;
-            }
-        }
-        return false;
     }
 
 

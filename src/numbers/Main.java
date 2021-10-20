@@ -2,7 +2,6 @@ package numbers;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -14,21 +13,21 @@ public class Main {
     static String[] arrayProp = {"ODD", "EVEN", "SPY", "PALINDROMIC", "BUZZ", "DUCK", "GAPFUL", "SUNNY", "SQUARE"};
     static List<String> listProp = Arrays.asList(arrayProp);
 
-    static class Calculation {
+    static class Properties {
 
-        static boolean getEven(long number) {
+        static boolean isEven(long number) {
             return number % 2 == 0;
         }
 
-        static boolean getOdd(long number) {
+        static boolean isOdd(long number) {
             return number % 2 != 0;
         }
 
-        static boolean getBuzz(long number) {
+        static boolean isBuzz(long number) {
             return number % 7 == 0 || number % 10 == 7;
         }
 
-        static boolean getDuck(long number) {
+        static boolean isDuck(long number) {
             while (number > 0) {
                 if (number % 10 == 0) {
                     return true;
@@ -38,7 +37,7 @@ public class Main {
             return false;
         }
 
-        static boolean getPalindromic(long number) {
+        static boolean isPalindromic(long number) {
             String str = Long.toString(number);
             for (int i = 0; i < str.length(); i++) {
                 if (str.charAt(i) != str.charAt(str.length() - 1 - i)) {
@@ -48,7 +47,7 @@ public class Main {
             return true;
         }
 
-        static boolean getGapful(long number) {
+        static boolean isGapful(long number) {
             String str = Long.toString(number);
             if (number < 100) {
                 return false;
@@ -58,7 +57,7 @@ public class Main {
             }
         }
 
-        static boolean getSpy(long number) {
+        static boolean isSpy(long number) {
             long sum = 0;
             long multi = 1;
             while (number > 0) {
@@ -70,64 +69,79 @@ public class Main {
             return sum == multi;
         }
 
-        static boolean getSunny(long number) {
+        static boolean isSunny(long number) {
             return Math.sqrt((double) number + 1) % 1 == 0;
         }
 
-        static boolean getSquare(long number) {
+        static boolean isSquare(long number) {
             return Math.sqrt(number) % 1 == 0;
         }
-
-        static void display(long number) {
-            System.out.println("Properties of " + number);
-            System.out.println("\s buzz: " + getBuzz(number));
-            System.out.println("\s duck: " + getDuck(number));
-            System.out.println("\s spy: " + getSpy(number));
-            System.out.println("\s palindromic: " + getPalindromic(number));
-            System.out.println("\s gapful: " + getGapful(number));
-            System.out.println("\s even: " + getEven(number));
-            System.out.println("\s odd: " + getOdd(number));
-            System.out.println("\s sunny: " + getSunny(number));
-            System.out.println("\s square: " + getSquare(number));
-        }
-
-        static void inlineDisplay(long number) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(number).append(" is ");
-            if (getSpy(number)) sb.append("spy, ");
-            if (getBuzz(number)) sb.append("buzz, ");
-            if (getDuck(number)) sb.append("duck, ");
-            if (getPalindromic(number)) sb.append("palindromic, ");
-            if (getGapful(number)) sb.append("gapful, ");
-            if (getSunny(number)) sb.append("sunny, ");
-            if (getSquare(number)) sb.append("square, ");
-            if (getEven(number)) sb.append("even.");
-            else sb.append("odd.");
-            System.out.println(sb);
-        }
-
-        static void getSingleNumberResult(long number) {
-            if (number < 0 ) {
-                System.out.println("The first parameter should be a natural number or zero.");
-            } else if (number == 0) {
-                System.out.println("Goodbye");
-                loop = false;
-            } else {
-                display(number);
-            }
-        }
-
-        static void getSequenceNumbersResult(long number, long counter) {
-            if (counter <= 0) {
-                System.out.println("The second parameter should be a natural number.");
-            } else {
-                for (long i = 0; i < counter; i++) {
-                    inlineDisplay(number++);
-                }
-            }
-        }
-
     }
+
+    static void display(long number) {
+        System.out.println("Properties of " + number);
+        System.out.println("\s buzz: " + Properties.isBuzz(number));
+        System.out.println("\s duck: " + Properties.isDuck(number));
+        System.out.println("\s spy: " + Properties.isSpy(number));
+        System.out.println("\s palindromic: " + Properties.isPalindromic(number));
+        System.out.println("\s gapful: " + Properties.isGapful(number));
+        System.out.println("\s even: " + Properties.isEven(number));
+        System.out.println("\s odd: " + Properties.isOdd(number));
+        System.out.println("\s sunny: " + Properties.isSunny(number));
+        System.out.println("\s square: " + Properties.isSquare(number));
+    }
+
+    static void inlineDisplay(long number) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(number).append(" is ");
+        if (Properties.isSpy(number)) sb.append("spy, ");
+        if (Properties.isBuzz(number)) sb.append("buzz, ");
+        if (Properties.isDuck(number)) sb.append("duck, ");
+        if (Properties.isPalindromic(number)) sb.append("palindromic, ");
+        if (Properties.isGapful(number)) sb.append("gapful, ");
+        if (Properties.isSunny(number)) sb.append("sunny, ");
+        if (Properties.isSquare(number)) sb.append("square, ");
+        if (Properties.isEven(number)) sb.append("even.");
+        else sb.append("odd.");
+        System.out.println(sb);
+    }
+
+    static void getSingleNumberResult(long number) {
+        if (number < 0 ) {
+            System.out.println("The first parameter should be a natural number or zero.");
+        } else if (number == 0) {
+            System.out.println("Goodbye");
+            loop = false;
+        } else {
+            display(number);
+        }
+    }
+
+    static void getSequenceNumbersResult(long number, long counter) {
+        if (counter <= 0) {
+            System.out.println("The second parameter should be a natural number.");
+        } else {
+            for (long i = 0; i < counter; i++) {
+                inlineDisplay(number++);
+            }
+        }
+    }
+
+    static void whichProperty(long number, String property) {
+        switch (property) {
+            case "SPY" -> Properties.isSpy(number);
+            case "BUZZ" -> Properties.isBuzz(number);
+            case "PALINDROMIC" -> Properties.isPalindromic(number);
+            case "GAPFUL" -> Properties.isGapful(number);
+            case "SUNNY" -> Properties.isSunny(number);
+            case "SQUARE" -> Properties.isSquare(number);
+            case "EVEN" -> Properties.isEven(number);
+            case "ODD" -> Properties.isOdd(number);
+        }
+    }
+
+
+
 
     static class FilterProperties {
 
@@ -138,8 +152,8 @@ public class Main {
                 switch (word1) {
                     case "SPY" -> {
                         while (counter > 0) {
-                            if (Calculation.getSpy(number)) {
-                                Calculation.inlineDisplay(number);
+                            if (Properties.isSpy(number)) {
+                                inlineDisplay(number);
                                 counter--;
                             }
                             number++;
@@ -147,8 +161,8 @@ public class Main {
                     }
                     case "BUZZ" -> {
                         while (counter > 0) {
-                            if (Calculation.getBuzz(number)) {
-                                Calculation.inlineDisplay(number);
+                            if (Properties.isBuzz(number)) {
+                                inlineDisplay(number);
                                 counter--;
                             }
                             number++;
@@ -156,8 +170,8 @@ public class Main {
                     }
                     case "PALINDROMIC" -> {
                         while (counter > 0) {
-                            if (Calculation.getPalindromic(number)) {
-                                Calculation.inlineDisplay(number);
+                            if (Properties.isPalindromic(number)) {
+                                inlineDisplay(number);
                                 counter--;
                             }
                             number++;
@@ -165,8 +179,8 @@ public class Main {
                     }
                     case "GAPFUL" -> {
                         while (counter > 0) {
-                            if (Calculation.getGapful(number)) {
-                                Calculation.inlineDisplay(number);
+                            if (Properties.isGapful(number)) {
+                                inlineDisplay(number);
                                 counter--;
                             }
                             number++;
@@ -174,8 +188,8 @@ public class Main {
                     }
                     case "DUCK" -> {
                         while (counter > 0) {
-                            if (Calculation.getDuck(number)) {
-                                Calculation.inlineDisplay(number);
+                            if (Properties.isDuck(number)) {
+                                inlineDisplay(number);
                                 counter--;
                             }
                             number++;
@@ -183,8 +197,8 @@ public class Main {
                     }
                     case "SUNNY" -> {
                         while (counter > 0) {
-                            if (Calculation.getSunny(number)) {
-                                Calculation.inlineDisplay(number);
+                            if (Properties.isSunny(number)) {
+                                inlineDisplay(number);
                                 counter--;
                             }
                             number++;
@@ -192,8 +206,8 @@ public class Main {
                     }
                     case "SQUARE" -> {
                         while (counter > 0) {
-                            if (Calculation.getSquare(number)) {
-                                Calculation.inlineDisplay(number);
+                            if (Properties.isSquare(number)) {
+                                inlineDisplay(number);
                                 counter--;
                             }
                             number++;
@@ -201,8 +215,8 @@ public class Main {
                     }
                     case "EVEN" -> {
                         while (counter > 0) {
-                            if (Calculation.getEven(number)) {
-                                Calculation.inlineDisplay(number);
+                            if (Properties.isEven(number)) {
+                                inlineDisplay(number);
                                 counter--;
                             }
                             number++;
@@ -210,8 +224,8 @@ public class Main {
                     }
                     case "ODD" -> {
                         while (counter > 0) {
-                            if (Calculation.getOdd(number)) {
-                                Calculation.inlineDisplay(number);
+                            if (Properties.isOdd(number)) {
+                                inlineDisplay(number);
                                 counter--;
                             }
                             number++;
@@ -250,8 +264,8 @@ public class Main {
                         switch (word2) {
                             case "SPY" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSpy(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSpy(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -259,8 +273,8 @@ public class Main {
                             }
                             case "BUZZ" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getBuzz(number) && Calculation.getSpy(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isBuzz(number) && Properties.isSpy(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -268,8 +282,8 @@ public class Main {
                             }
                             case "PALINDROMIC" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getPalindromic(number) && Calculation.getSpy(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isPalindromic(number) && Properties.isSpy(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -277,8 +291,8 @@ public class Main {
                             }
                             case "GAPFUL" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getGapful(number) && Calculation.getSpy(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isGapful(number) && Properties.isSpy(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -286,8 +300,8 @@ public class Main {
                             }
                             case "SUNNY" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSunny(number) && Calculation.getSpy(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSunny(number) && Properties.isSpy(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -295,8 +309,8 @@ public class Main {
                             }
                             case "SQUARE" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSquare(number) && Calculation.getSpy(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSquare(number) && Properties.isSpy(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -304,8 +318,8 @@ public class Main {
                             }
                             case "EVEN" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getEven(number) && Calculation.getSpy(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isEven(number) && Properties.isSpy(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -313,8 +327,8 @@ public class Main {
                             }
                             case "ODD" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getOdd(number) && Calculation.getSpy(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isOdd(number) && Properties.isSpy(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -327,8 +341,8 @@ public class Main {
                         switch (word2) {
                             case "SPY" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSpy(number) && Calculation.getBuzz(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSpy(number) && Properties.isBuzz(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -336,8 +350,8 @@ public class Main {
                             }
                             case "BUZZ" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getBuzz(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isBuzz(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -345,8 +359,8 @@ public class Main {
                             }
                             case "PALINDROMIC" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getPalindromic(number) && Calculation.getBuzz(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isPalindromic(number) && Properties.isBuzz(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -354,8 +368,8 @@ public class Main {
                             }
                             case "GAPFUL" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getGapful(number) && Calculation.getBuzz(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isGapful(number) && Properties.isBuzz(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -363,8 +377,8 @@ public class Main {
                             }
                             case "DUCK" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getDuck(number) && Calculation.getBuzz(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isDuck(number) && Properties.isBuzz(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -372,8 +386,8 @@ public class Main {
                             }
                             case "SUNNY" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSunny(number) && Calculation.getBuzz(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSunny(number) && Properties.isBuzz(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -381,8 +395,8 @@ public class Main {
                             }
                             case "SQUARE" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSquare(number) && Calculation.getBuzz(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSquare(number) && Properties.isBuzz(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -390,8 +404,8 @@ public class Main {
                             }
                             case "EVEN" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getEven(number) && Calculation.getBuzz(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isEven(number) && Properties.isBuzz(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -399,8 +413,8 @@ public class Main {
                             }
                             case "ODD" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getOdd(number) && Calculation.getBuzz(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isOdd(number) && Properties.isBuzz(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -413,8 +427,8 @@ public class Main {
                         switch (word2) {
                             case "SPY" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSpy(number) && Calculation.getPalindromic(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSpy(number) && Properties.isPalindromic(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -422,8 +436,8 @@ public class Main {
                             }
                             case "BUZZ" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getBuzz(number) && Calculation.getPalindromic(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isBuzz(number) && Properties.isPalindromic(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -431,8 +445,8 @@ public class Main {
                             }
                             case "PALINDROMIC" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getPalindromic(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isPalindromic(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -440,8 +454,8 @@ public class Main {
                             }
                             case "GAPFUL" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getGapful(number) && Calculation.getPalindromic(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isGapful(number) && Properties.isPalindromic(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -449,8 +463,8 @@ public class Main {
                             }
                             case "DUCK" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getDuck(number) && Calculation.getPalindromic(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isDuck(number) && Properties.isPalindromic(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -458,8 +472,8 @@ public class Main {
                             }
                             case "SUNNY" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSunny(number) && Calculation.getPalindromic(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSunny(number) && Properties.isPalindromic(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -467,8 +481,8 @@ public class Main {
                             }
                             case "SQUARE" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSquare(number) && Calculation.getPalindromic(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSquare(number) && Properties.isPalindromic(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -476,8 +490,8 @@ public class Main {
                             }
                             case "EVEN" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getEven(number) && Calculation.getPalindromic(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isEven(number) && Properties.isPalindromic(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -485,8 +499,8 @@ public class Main {
                             }
                             case "ODD" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getOdd(number) && Calculation.getPalindromic(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isOdd(number) && Properties.isPalindromic(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -499,8 +513,8 @@ public class Main {
                         switch (word2) {
                             case "SPY" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSpy(number) && Calculation.getGapful(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSpy(number) && Properties.isGapful(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -508,8 +522,8 @@ public class Main {
                             }
                             case "BUZZ" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getBuzz(number) && Calculation.getGapful(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isBuzz(number) && Properties.isGapful(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -517,8 +531,8 @@ public class Main {
                             }
                             case "PALINDROMIC" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getPalindromic(number) && Calculation.getGapful(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isPalindromic(number) && Properties.isGapful(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -526,8 +540,8 @@ public class Main {
                             }
                             case "GAPFUL" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getGapful(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isGapful(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -535,8 +549,8 @@ public class Main {
                             }
                             case "DUCK" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getDuck(number) && Calculation.getGapful(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isDuck(number) && Properties.isGapful(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -544,8 +558,8 @@ public class Main {
                             }
                             case "SUNNY" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSunny(number) && Calculation.getGapful(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSunny(number) && Properties.isGapful(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -553,8 +567,8 @@ public class Main {
                             }
                             case "SQUARE" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSquare(number) && Calculation.getGapful(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSquare(number) && Properties.isGapful(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -562,8 +576,8 @@ public class Main {
                             }
                             case "EVEN" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getEven(number) && Calculation.getGapful(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isEven(number) && Properties.isGapful(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -571,8 +585,8 @@ public class Main {
                             }
                             case "ODD" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getOdd(number) && Calculation.getGapful(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isOdd(number) && Properties.isGapful(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -585,8 +599,8 @@ public class Main {
                         switch (word2) {
                             case "BUZZ" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getBuzz(number) && Calculation.getDuck(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isBuzz(number) && Properties.isDuck(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -594,8 +608,8 @@ public class Main {
                             }
                             case "PALINDROMIC" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getPalindromic(number) && Calculation.getDuck(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isPalindromic(number) && Properties.isDuck(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -603,8 +617,8 @@ public class Main {
                             }
                             case "GAPFUL" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getGapful(number) && Calculation.getDuck(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isGapful(number) && Properties.isDuck(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -612,8 +626,8 @@ public class Main {
                             }
                             case "DUCK" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getDuck(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isDuck(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -621,8 +635,8 @@ public class Main {
                             }
                             case "SUNNY" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSunny(number) && Calculation.getDuck(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSunny(number) && Properties.isDuck(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -630,8 +644,8 @@ public class Main {
                             }
                             case "SQUARE" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSquare(number) && Calculation.getDuck(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSquare(number) && Properties.isDuck(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -639,8 +653,8 @@ public class Main {
                             }
                             case "EVEN" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getEven(number) && Calculation.getDuck(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isEven(number) && Properties.isDuck(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -648,8 +662,8 @@ public class Main {
                             }
                             case "ODD" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getOdd(number) && Calculation.getDuck(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isOdd(number) && Properties.isDuck(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -662,8 +676,8 @@ public class Main {
                         switch (word2) {
                             case "SPY" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSpy(number) && Calculation.getSunny(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSpy(number) && Properties.isSunny(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -671,8 +685,8 @@ public class Main {
                             }
                             case "BUZZ" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getBuzz(number) && Calculation.getSunny(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isBuzz(number) && Properties.isSunny(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -680,8 +694,8 @@ public class Main {
                             }
                             case "PALINDROMIC" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getPalindromic(number) && Calculation.getSunny(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isPalindromic(number) && Properties.isSunny(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -689,8 +703,8 @@ public class Main {
                             }
                             case "GAPFUL" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getGapful(number) && Calculation.getSunny(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isGapful(number) && Properties.isSunny(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -698,8 +712,8 @@ public class Main {
                             }
                             case "DUCK" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getDuck(number) && Calculation.getSunny(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isDuck(number) && Properties.isSunny(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -707,8 +721,8 @@ public class Main {
                             }
                             case "SUNNY" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSunny(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSunny(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -716,8 +730,8 @@ public class Main {
                             }
                             case "EVEN" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getEven(number) && Calculation.getSunny(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isEven(number) && Properties.isSunny(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -725,8 +739,8 @@ public class Main {
                             }
                             case "ODD" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getOdd(number) && Calculation.getSunny(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isOdd(number) && Properties.isSunny(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -739,8 +753,8 @@ public class Main {
                         switch (word2) {
                             case "SPY" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSpy(number) && Calculation.getSquare(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSpy(number) && Properties.isSquare(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -748,8 +762,8 @@ public class Main {
                             }
                             case "BUZZ" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getBuzz(number) && Calculation.getSquare(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isBuzz(number) && Properties.isSquare(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -757,8 +771,8 @@ public class Main {
                             }
                             case "PALINDROMIC" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getPalindromic(number) && Calculation.getSquare(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isPalindromic(number) && Properties.isSquare(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -766,8 +780,8 @@ public class Main {
                             }
                             case "GAPFUL" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getGapful(number) && Calculation.getSquare(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isGapful(number) && Properties.isSquare(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -775,8 +789,8 @@ public class Main {
                             }
                             case "DUCK" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getDuck(number) && Calculation.getSquare(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isDuck(number) && Properties.isSquare(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -784,8 +798,8 @@ public class Main {
                             }
                             case "SQUARE" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSquare(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSquare(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -793,8 +807,8 @@ public class Main {
                             }
                             case "EVEN" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getEven(number) && Calculation.getSquare(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isEven(number) && Properties.isSquare(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -802,8 +816,8 @@ public class Main {
                             }
                             case "ODD" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getOdd(number) && Calculation.getSquare(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isOdd(number) && Properties.isSquare(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -816,8 +830,8 @@ public class Main {
                         switch (word2) {
                             case "SPY" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSpy(number) && Calculation.getEven(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSpy(number) && Properties.isEven(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -825,8 +839,8 @@ public class Main {
                             }
                             case "BUZZ" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getBuzz(number) && Calculation.getEven(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isBuzz(number) && Properties.isEven(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -834,8 +848,8 @@ public class Main {
                             }
                             case "PALINDROMIC" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getPalindromic(number) && Calculation.getEven(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isPalindromic(number) && Properties.isEven(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -843,8 +857,8 @@ public class Main {
                             }
                             case "GAPFUL" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getGapful(number) && Calculation.getEven(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isGapful(number) && Properties.isEven(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -852,8 +866,8 @@ public class Main {
                             }
                             case "DUCK" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getDuck(number) && Calculation.getEven(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isDuck(number) && Properties.isEven(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -861,8 +875,8 @@ public class Main {
                             }
                             case "SUNNY" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSunny(number) && Calculation.getEven(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSunny(number) && Properties.isEven(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -870,8 +884,8 @@ public class Main {
                             }
                             case "SQUARE" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSquare(number) && Calculation.getEven(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSquare(number) && Properties.isEven(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -879,8 +893,8 @@ public class Main {
                             }
                             case "EVEN" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getEven(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isEven(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -893,8 +907,8 @@ public class Main {
                         switch (word2) {
                             case "SPY" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSpy(number) && Calculation.getOdd(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSpy(number) && Properties.isOdd(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -902,8 +916,8 @@ public class Main {
                             }
                             case "BUZZ" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getBuzz(number) && Calculation.getOdd(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isBuzz(number) && Properties.isOdd(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -911,8 +925,8 @@ public class Main {
                             }
                             case "PALINDROMIC" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getPalindromic(number) && Calculation.getOdd(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isPalindromic(number) && Properties.isOdd(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -920,8 +934,8 @@ public class Main {
                             }
                             case "GAPFUL" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getGapful(number) && Calculation.getOdd(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isGapful(number) && Properties.isOdd(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -929,8 +943,8 @@ public class Main {
                             }
                             case "DUCK" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getDuck(number) && Calculation.getOdd(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isDuck(number) && Properties.isOdd(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -938,8 +952,8 @@ public class Main {
                             }
                             case "SUNNY" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSunny(number) && Calculation.getOdd(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSunny(number) && Properties.isOdd(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -947,8 +961,8 @@ public class Main {
                             }
                             case "SQUARE" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getSquare(number) && Calculation.getOdd(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isSquare(number) && Properties.isOdd(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -956,8 +970,8 @@ public class Main {
                             }
                             case "ODD" -> {
                                 while (counter > 0) {
-                                    if (Calculation.getOdd(number)) {
-                                        Calculation.inlineDisplay(number);
+                                    if (Properties.isOdd(number)) {
+                                        inlineDisplay(number);
                                         counter--;
                                     }
                                     number++;
@@ -1002,12 +1016,12 @@ public class Main {
                 switch (len) {
                     case 1 -> {
                         num1 = Long.parseLong(input[0]);
-                        Calculation.getSingleNumberResult(num1);
+                        getSingleNumberResult(num1);
                     }
                     case 2 -> {
                         num1 = Long.parseLong(input[0]);
                         num2 = Long.parseLong(input[1]);
-                        Calculation.getSequenceNumbersResult(num1, num2);
+                        getSequenceNumbersResult(num1, num2);
                     }
                     case 3 -> {
                         num1 = Long.parseLong(input[0]);
