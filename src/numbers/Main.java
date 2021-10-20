@@ -863,6 +863,13 @@ public class Main {
                         String fPar1 = input[2].toUpperCase();
                         Filter.showFilteredResultWithOneWord(num1, num2, fPar1);
                     }
+                    case 4 -> {
+                        num1 = Long.parseLong(input[0]);
+                        num2 = Integer.parseInt(input[1]);
+                        String fPar1 = input[2].toUpperCase();
+                        String fPar2 = input[3].toUpperCase();
+                        Filter.showFilteredResultWithOneWord(num1, num2, fPar1, fPar2);
+                    }
                     default -> throw new IllegalStateException("Unexpected value: " + len);
                 }
             } catch (NumberFormatException e) {

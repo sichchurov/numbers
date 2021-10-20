@@ -63,5 +63,17 @@ class Filter {
             }
         }
     }
+
+    static void showFilteredResultWithOneWord(long number, int count, String property, String propertyTwo) {
+        if (isProperty(property)) {
+            while (count > 0) {
+                if (whichProperty(number, property) && whichProperty(number, propertyTwo)) {
+                    showMultiplyResult(number);
+                    count--;
+                }
+                number++;
+            }
+        }
+    }
 }
 
