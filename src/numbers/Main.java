@@ -3,6 +3,7 @@ package numbers;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import static numbers.Main.Display.*;
 import static numbers.Main.Properties.*;
 
 public class Main {
@@ -13,51 +14,53 @@ public class Main {
     static boolean loop = true;
     static String[] arrayProp = {"ODD", "EVEN", "SPY", "PALINDROMIC", "BUZZ", "DUCK", "GAPFUL", "SUNNY", "SQUARE"};
 
-    static void showSingleResult(long number) {
-        System.out.println("Properties of " + number);
-        System.out.println("\s buzz: " + Properties.isBuzz(number));
-        System.out.println("\s duck: " + Properties.isDuck(number));
-        System.out.println("\s spy: " + isSpy(number));
-        System.out.println("\s palindromic: " + Properties.isPalindromic(number));
-        System.out.println("\s gapful: " + Properties.isGapful(number));
-        System.out.println("\s even: " + Properties.isEven(number));
-        System.out.println("\s odd: " + Properties.isOdd(number));
-        System.out.println("\s sunny: " + Properties.isSunny(number));
-        System.out.println("\s square: " + Properties.isSquare(number));
-    }
-
-    static void showMultiplyResult(long number) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(number).append(" is ");
-        if (isSpy(number)) sb.append("spy, ");
-        if (Properties.isBuzz(number)) sb.append("buzz, ");
-        if (Properties.isDuck(number)) sb.append("duck, ");
-        if (Properties.isPalindromic(number)) sb.append("palindromic, ");
-        if (Properties.isGapful(number)) sb.append("gapful, ");
-        if (Properties.isSunny(number)) sb.append("sunny, ");
-        if (Properties.isSquare(number)) sb.append("square, ");
-        if (Properties.isEven(number)) sb.append("even.");
-        else sb.append("odd.");
-        System.out.println(sb);
-    }
-
-    static void getSingleNumberResult(long number) {
-        if (number < 0) {
-            System.out.println("The first parameter should be a natural number or zero.");
-        } else if (number == 0) {
-            System.out.println("Goodbye");
-            loop = false;
-        } else {
-            showSingleResult(number);
+    static class Display {
+        static void showSingleResult(long number) {
+            System.out.println("Properties of " + number);
+            System.out.println("\s buzz: " + Properties.isBuzz(number));
+            System.out.println("\s duck: " + Properties.isDuck(number));
+            System.out.println("\s spy: " + isSpy(number));
+            System.out.println("\s palindromic: " + Properties.isPalindromic(number));
+            System.out.println("\s gapful: " + Properties.isGapful(number));
+            System.out.println("\s even: " + Properties.isEven(number));
+            System.out.println("\s odd: " + Properties.isOdd(number));
+            System.out.println("\s sunny: " + Properties.isSunny(number));
+            System.out.println("\s square: " + Properties.isSquare(number));
         }
-    }
 
-    static void getSequenceNumbersResult(long number, long counter) {
-        if (counter <= 0) {
-            System.out.println("The second parameter should be a natural number.");
-        } else {
-            for (long i = 0; i < counter; i++) {
-                showMultiplyResult(number++);
+        static void showMultiplyResult(long number) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(number).append(" is ");
+            if (isSpy(number)) sb.append("spy, ");
+            if (Properties.isBuzz(number)) sb.append("buzz, ");
+            if (Properties.isDuck(number)) sb.append("duck, ");
+            if (Properties.isPalindromic(number)) sb.append("palindromic, ");
+            if (Properties.isGapful(number)) sb.append("gapful, ");
+            if (Properties.isSunny(number)) sb.append("sunny, ");
+            if (Properties.isSquare(number)) sb.append("square, ");
+            if (Properties.isEven(number)) sb.append("even.");
+            else sb.append("odd.");
+            System.out.println(sb);
+        }
+
+        static void getSingleNumberResult(long number) {
+            if (number < 0) {
+                System.out.println("The first parameter should be a natural number or zero.");
+            } else if (number == 0) {
+                System.out.println("Goodbye");
+                loop = false;
+            } else {
+                showSingleResult(number);
+            }
+        }
+
+        static void getSequenceNumbersResult(long number, long counter) {
+            if (counter <= 0) {
+                System.out.println("The second parameter should be a natural number.");
+            } else {
+                for (long i = 0; i < counter; i++) {
+                    showMultiplyResult(number++);
+                }
             }
         }
     }
