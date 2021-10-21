@@ -3,29 +3,33 @@ package numbers;
 import java.util.Arrays;
 import java.util.Scanner;
 
+
+
 import static numbers.Main.Display.*;
 import static numbers.Main.Properties.*;
 
 public class Main {
 
     static final Scanner scanner = new Scanner(System.in);
-    static long num1;
-    static int num2;
+    static long number;
+    static int counter;
     static boolean loop = true;
-    static String[] arrayProp = {"ODD", "EVEN", "SPY", "PALINDROMIC", "BUZZ", "DUCK", "GAPFUL", "SUNNY", "SQUARE"};
+    static String[] arrayProp = {"ODD", "EVEN", "SPY", "PALINDROMIC", "BUZZ", "DUCK", "GAPFUL", "SUNNY", "SQUARE", "JUMPING"};
 
     static class Display {
+
         static void showSingleResult(long number) {
             System.out.println("Properties of " + number);
             System.out.println("\s buzz: " + Properties.isBuzz(number));
             System.out.println("\s duck: " + Properties.isDuck(number));
             System.out.println("\s spy: " + isSpy(number));
-            System.out.println("\s palindromic: " + Properties.isPalindromic(number));
-            System.out.println("\s gapful: " + Properties.isGapful(number));
-            System.out.println("\s even: " + Properties.isEven(number));
-            System.out.println("\s odd: " + Properties.isOdd(number));
-            System.out.println("\s sunny: " + Properties.isSunny(number));
-            System.out.println("\s square: " + Properties.isSquare(number));
+            System.out.println("\s palindromic: " + isPalindromic(number));
+            System.out.println("\s gapful: " + isGapful(number));
+            System.out.println("\s even: " + isEven(number));
+            System.out.println("\s odd: " + isOdd(number));
+            System.out.println("\s sunny: " + isSunny(number));
+            System.out.println("\s square: " + isSquare(number));
+            System.out.println("\s jumping: " + isJumping(number));
         }
 
         static void showMultiplyResult(long number) {
@@ -38,6 +42,7 @@ public class Main {
             if (Properties.isGapful(number)) sb.append("gapful, ");
             if (Properties.isSunny(number)) sb.append("sunny, ");
             if (Properties.isSquare(number)) sb.append("square, ");
+            if (Properties.isJumping(number)) sb.append("jumping, ");
             if (Properties.isEven(number)) sb.append("even.");
             else sb.append("odd.");
             System.out.println(sb);
@@ -63,6 +68,7 @@ public class Main {
                 }
             }
         }
+
     }
 
     static class Properties {
@@ -128,12 +134,23 @@ public class Main {
         static boolean isSquare(long number) {
             return Math.sqrt(number) % 1 == 0;
         }
+        
+        static boolean isJumping(long number) {
+        	String str = String.valueOf((number));
+        	for (int i = 1; i < str.length(); i++) {
+        		if (str.charAt(i) == str.charAt(i - 1) + 1) {
+        			return true;
+        		}
+        	}
+        	return false;
+        }
+        
     }
 
     static class Filter {
 
         static boolean isProperty(String property) {
-            String[] properties = {"ODD", "EVEN", "SPY", "PALINDROMIC", "BUZZ", "DUCK", "GAPFUL", "SUNNY", "SQUARE"};
+            String[] properties = {"ODD", "EVEN", "SPY", "PALINDROMIC", "BUZZ", "DUCK", "GAPFUL", "SUNNY", "SQUARE", "JUMPING"};
             for (String s : properties) {
                 if (s.equals(property)) {
                     return true;
@@ -161,6 +178,9 @@ public class Main {
                 }
                 case "SQUARE" -> {
                     return isSquare(number);
+                }
+                case "JUMPING" -> {
+                    return isJumping(number);
                 }
                 case "EVEN" -> {
                     return isEven(number);
@@ -211,7 +231,7 @@ public class Main {
             } else if (property.equals("DUCK") && propertyTwo.equals("SPY") || property.equals("SPY") && propertyTwo.equals("DUCK")) {
                 return false;
             } else {
-                return !property.equals("SUNNY") && !propertyTwo.equals("SQUARE") || !property.equals("SQUARE") && !propertyTwo.equals("SUNNY");
+                return !(property.equals("SUNNY") && propertyTwo.equals("SQUARE") || property.equals("SQUARE") && propertyTwo.equals("SUNNY"));
             }
         }
 
@@ -232,10 +252,10 @@ public class Main {
                 showWarningMoreProperties(property, propertyTwo);
             }
         }
-
     }
 
     public static void main(String[] args) {
+
         System.out.println("Welcome to Amazing Numbers!");
         System.out.println("Supported requests: ");
         System.out.println("\s - enter a natural number to know its properties;");
@@ -255,26 +275,26 @@ public class Main {
             try { // if a user inputs not a natural num as a parameter
                 switch (len) {
                     case 1 -> {
-                        num1 = Long.parseLong(input[0]);
-                        getSingleNumberResult(num1);
+                        number = Long.parseLong(input[0]);
+                        getSingleNumberResult(number);
                     }
                     case 2 -> {
-                        num1 = Long.parseLong(input[0]);
-                        num2 = Integer.parseInt(input[1]);
-                        getSequenceNumbersResult(num1, num2);
+                        number = Long.parseLong(input[0]);
+                        counter = Integer.parseInt(input[1]);
+                        getSequenceNumbersResult(number, counter);
                     }
                     case 3 -> {
-                        num1 = Long.parseLong(input[0]);
-                        num2 = Integer.parseInt(input[1]);
+                        number = Long.parseLong(input[0]);
+                        counter = Integer.parseInt(input[1]);
                         String fPar1 = input[2].toUpperCase();
-                        Filter.showFilteredResultWithOneWord(num1, num2, fPar1);
+                        Filter.showFilteredResultWithOneWord(number, counter, fPar1);
                     }
                     case 4 -> {
-                        num1 = Long.parseLong(input[0]);
-                        num2 = Integer.parseInt(input[1]);
+                        number = Long.parseLong(input[0]);
+                        counter = Integer.parseInt(input[1]);
                         String property = input[2].toUpperCase();
                         String propertyTwo = input[3].toUpperCase();
-                        Filter.showFilteredResultMoreOneWord(num1, num2, property, propertyTwo);
+                        Filter.showFilteredResultMoreOneWord(number, counter, property, propertyTwo); 
                     }
                     default -> throw new IllegalStateException("Unexpected value: " + len);
                 }
