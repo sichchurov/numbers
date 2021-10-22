@@ -97,7 +97,7 @@ public class Main {
 
         static boolean isPalindromic(long number) {
             String str = Long.toString(number);
-            for (int i = 0; i < str.length(); i++) {
+            for (int i = 0; i < str.length() / 2; i++) {
                 if (str.charAt(i) != str.charAt(str.length() - 1 - i)) {
                     return false;
                 }
@@ -137,10 +137,15 @@ public class Main {
         
         static boolean isJumping(long number) {
         	String str = String.valueOf((number));
+            int count = 1;
         	for (int i = 1; i < str.length(); i++) {
-        		if (str.charAt(i) == str.charAt(i - 1) + 1) {
-        			return true;
-        		}
+                if (str.charAt(i) == str.charAt(i - 1) + 1 || str.charAt(i) == str.charAt(i - 1) - 1) {
+                    count++;
+                }
+
+                if (count == str.length()) {
+                    return true;
+                }
         	}
         	return false;
         }
@@ -270,7 +275,6 @@ public class Main {
             System.out.println("Enter a request:");
             String[] input = scanner.nextLine().split(" ");
             int len = input.length;
-
 
             try { // if a user inputs not a natural num as a parameter
                 switch (len) {
