@@ -18,7 +18,7 @@ public class Main {
 
     static class Display {
 
-        static void showSingleResult(long number) {
+        static void getSingleResult(long number) {
             System.out.println("Properties of " + number);
             System.out.println("\s buzz: " + Properties.isBuzz(number));
             System.out.println("\s duck: " + Properties.isDuck(number));
@@ -32,7 +32,7 @@ public class Main {
             System.out.println("\s jumping: " + isJumping(number));
         }
 
-        static void showMultiplyResult(long number) {
+        static void getMultiplyResult(long number) {
             StringBuilder sb = new StringBuilder();
             sb.append(number).append(" is ");
             if (isSpy(number)) sb.append("spy, ");
@@ -48,23 +48,23 @@ public class Main {
             System.out.println(sb);
         }
 
-        static void getSingleNumberResult(long number) {
+        static void showSingleNumberResult(long number) {
             if (number < 0) {
                 System.out.println("The first parameter should be a natural number or zero.");
             } else if (number == 0) {
                 System.out.println("Goodbye");
                 loop = false;
             } else {
-                showSingleResult(number);
+                getSingleResult(number);
             }
         }
 
-        static void getSequenceNumbersResult(long number, long counter) {
+        static void showSequenceNumbersResult(long number, long counter) {
             if (counter <= 0) {
                 System.out.println("The second parameter should be a natural number.");
             } else {
                 for (long i = 0; i < counter; i++) {
-                    showMultiplyResult(number++);
+                    getMultiplyResult(number++);
                 }
             }
         }
@@ -215,7 +215,7 @@ public class Main {
             } else if (isProperty(property)) {
                 while (count > 0) {
                     if (whichProperty(number, property)) {
-                        showMultiplyResult(number);
+                        getMultiplyResult(number);
                         count--;
                     }
                     number++;
@@ -243,7 +243,7 @@ public class Main {
             } else if (isProperty(property)) {
                 while (count > 0) {
                     if (whichProperty(number, property) && whichProperty(number, propertyTwo)) {
-                        showMultiplyResult(number);
+                        getMultiplyResult(number);
                         count--;
                     }
                     number++;
@@ -276,12 +276,12 @@ public class Main {
                 switch (len) {
                     case 1 -> {
                         number = Long.parseLong(input[0]);
-                        getSingleNumberResult(number);
+                        showSingleNumberResult(number);
                     }
                     case 2 -> {
                         number = Long.parseLong(input[0]);
                         counter = Integer.parseInt(input[1]);
-                        getSequenceNumbersResult(number, counter);
+                        showSequenceNumbersResult(number, counter);
                     }
                     case 3 -> {
                         number = Long.parseLong(input[0]);
