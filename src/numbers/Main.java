@@ -257,6 +257,24 @@ public class Main {
                 showWarningMoreProperties(property, propertyTwo);
             }
         }
+
+        static void showFilteredResultMoreOneWord(long number, int count, String property, String propertyTwo, String propertyThree) {
+            if (count <= 0) {
+                System.out.println("The second parameter should be a natural number.");
+            } else if (!isExclusive(property, propertyTwo)) {
+                showExclusivesWarnings(property, propertyTwo);
+            } else if (isProperty(property)) {
+                while (count > 0) {
+                    if (whichProperty(number, property) && whichProperty(number, propertyTwo) && whichProperty(number, propertyThree)) {
+                        getMultiplyResult(number);
+                        count--;
+                    }
+                    number++;
+                }
+            } else {
+                showWarningMoreProperties(property, propertyTwo);
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -299,6 +317,14 @@ public class Main {
                         String property = input[2].toUpperCase();
                         String propertyTwo = input[3].toUpperCase();
                         Filter.showFilteredResultMoreOneWord(number, counter, property, propertyTwo); 
+                    }
+                    case 5 -> {
+                        number = Long.parseLong(input[0]);
+                        counter = Integer.parseInt(input[1]);
+                        String property = input[2].toUpperCase();
+                        String propertyTwo = input[3].toUpperCase();
+                        String propertyThree = input[4].toUpperCase();
+                        Filter.showFilteredResultMoreOneWord(number, counter, property, propertyTwo, propertyThree);
                     }
                     default -> throw new IllegalStateException("Unexpected value: " + len);
                 }
