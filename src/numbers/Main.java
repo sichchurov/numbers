@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 
 import static numbers.Main.Display.*;
+import static numbers.Main.Filter.*;
 import static numbers.Main.Properties.*;
 import static numbers.Main.Warnings.*;
 
@@ -17,72 +18,6 @@ public class Main {
 	static boolean loop = true;
 	static String[] arrayProp = {"ODD", "EVEN", "SPY", "PALINDROMIC", "BUZZ", "DUCK", "GAPFUL", "SUNNY", "SQUARE", "JUMPING"};
 	static String[] input;
-
-	public static void main(String[] args) {
-
-		System.out.println("Welcome to Amazing Numbers!");
-		System.out.println("Supported requests: ");
-		System.out.println("\s - enter a natural number to know its properties;");
-		System.out.println("\s - enter two natural numbers to obtain the properties of the list:");
-		System.out.println("\t * the first parameter represents a starting number;");
-		System.out.println("\t * the second parameter shows how many consecutive numbers are to be printed;");
-		System.out.println("\s - two natural numbers and a property to search for;");
-		System.out.println("\s - two natural numbers and two properties to search for;");
-		System.out.println("\s - separate the parameters with one space;");
-		System.out.println("\s - enter 0 to exit");
-		while (loop) {
-			System.out.println("Enter a request:");
-			input = scanner.nextLine().toUpperCase().split(" ");
-			int len = input.length;
-
-			try { // if a user inputs not a natural num as a parameter
-				switch (len) {
-					case 1 -> {
-						number = Long.parseLong(input[0]);
-						showSingleNumberResult(number);
-					}
-					case 2 -> {
-						number = Long.parseLong(input[0]);
-						counter = Integer.parseInt(input[1]);
-						showSequenceNumbersResult(number, counter);
-					}
-					case 3 -> {
-						number = Long.parseLong(input[0]);
-						counter = Integer.parseInt(input[1]);
-						String fPar1 = input[2].toUpperCase();
-						Filter.showFilterResult(number, counter, fPar1);
-					}
-					case 4 -> {
-						number = Long.parseLong(input[0]);
-						counter = Integer.parseInt(input[1]);
-						String property = input[2].toUpperCase();
-						String property2 = input[3].toUpperCase();
-						Filter.showFilterResult(number, counter, property, property2);
-					}
-					case 5 -> {
-						number = Long.parseLong(input[0]);
-						counter = Integer.parseInt(input[1]);
-						String property = input[2].toUpperCase();
-						String property2 = input[3].toUpperCase();
-						String property3 = input[4].toUpperCase();
-						Filter.showFilterResult(number, counter, property, property2, property3);
-					}
-                    case 6 -> {
-                        number = Long.parseLong(input[0]);
-                        counter = Integer.parseInt(input[1]);
-                        String property = input[2].toUpperCase();
-                        String property2 = input[3].toUpperCase();
-                        String property3 = input[4].toUpperCase();
-                        String property4 = input[5].toUpperCase();
-                        Filter.showFilterResult(number, counter, property, property2, property3, property4);
-                    }
-					default -> throw new IllegalStateException("Unexpected value: " + len);
-				}
-			} catch (NumberFormatException e) {
-				System.out.println("Both parameters should be a natural number.");
-			}
-		}
-	}
 
 	static class Display {
 
@@ -293,6 +228,7 @@ public class Main {
         static void showWarn() {
             ArrayList<String> warnList = new ArrayList<>();
 
+			// i = 2 because: 0 - number, 1 - counter
 	        for (int i = 2; i < input.length; i++) {
 		        if (!Arrays.asList(arrayProp).contains(input[i])) {
 			        warnList.add(input[i]);
@@ -310,7 +246,7 @@ public class Main {
 
 	static class Filter {
 
-		static void showFilterResult(long number, int counter, String property) {
+		static void showFResult(long number, int counter, String property) {
 			if (counter <= 0) {
 				System.out.println("The second parameter should be a natural number.");
 			} else if (isProperty(property)) {
@@ -326,12 +262,12 @@ public class Main {
 			}
 		}
 
-		static void showFilterResult(long number, int counter, String property, String property2) {
+		static void showFResult(long number, int counter, String property, String property2) {
 			if (counter <= 0) {
 				System.out.println("The second parameter should be a natural number.");
 			} else if (isExclusive(property, property2)) {
 				showExclusivesWarnings(property, property2);
-			} else if (isProperty(property) && isProperty(property2)) {
+			} else if (isProperty(property)) {
 				while (counter > 0) {
 					if (whichProperty(number, property) && whichProperty(number, property2)) {
 						getMultiplyResult(number);
@@ -344,12 +280,12 @@ public class Main {
 			}
 		}
 
-        static void showFilterResult(long number, int counter, String property, String property2, String property3) {
+        static void showFResult(long number, int counter, String property, String property2, String property3) {
 			if (counter <= 0) {
 				System.out.println("The second parameter should be a natural number.");
 			} else if (isExclusive(property, property2)) {
 				showExclusivesWarnings(property, property2);
-			} else if (isProperty(property) && isProperty(property2) && isProperty(property3)) {
+			} else if (isProperty(property)) {
 				while (counter > 0) {
 					if (whichProperty(number, property) && whichProperty(number, property2) && whichProperty(number, property3)) {
 						getMultiplyResult(number);
@@ -362,12 +298,12 @@ public class Main {
 			}
 		}
 
-        static void showFilterResult(long number, int counter, String property, String property2, String property3, String property4) {
+        static void showFResult(long number, int counter, String property, String property2, String property3, String property4) {
             if (counter <= 0) {
                 System.out.println("The second parameter should be a natural number.");
             } else if (isExclusive(property, property2)) {
                 showExclusivesWarnings(property, property2);
-            } else if (isProperty(property) && isProperty(property2) && isProperty(property3) && isProperty(property4)) {
+            } else if (isProperty(property)) {
                 while (counter > 0) {
                     if (whichProperty(number, property) && whichProperty(number, property2) && whichProperty(number, property3) && whichProperty(number, property4)) {
                         getMultiplyResult(number);
@@ -380,5 +316,158 @@ public class Main {
             }
         }
 
+		static void showFResult(long number, int counter, String property, String property2, String property3, String property4, String property5) {
+			if (counter <= 0) {
+				System.out.println("The second parameter should be a natural number.");
+			} else if (isExclusive(property, property2)) {
+				showExclusivesWarnings(property, property2);
+			} else if (isProperty(property)) {
+				while (counter > 0) {
+					if (whichProperty(number, property) && whichProperty(number, property2) && whichProperty(number, property3) && whichProperty(number, property4) && whichProperty(number, property5)) {
+						getMultiplyResult(number);
+						counter--;
+					}
+					number++;
+				}
+			} else {
+				showWarn();
+			}
+		}
+
+		static void showFResult(long number, int counter, String property, String property2, String property3, String property4, String property5, String property6) {
+			if (counter <= 0) {
+				System.out.println("The second parameter should be a natural number.");
+			} else if (isExclusive(property, property2)) {
+				showExclusivesWarnings(property, property2);
+			} else if (isProperty(property)) {
+				while (counter > 0) {
+					if (whichProperty(number, property) && whichProperty(number, property2) && whichProperty(number, property3) && whichProperty(number, property4) && whichProperty(number, property5) && whichProperty(number, property6)) {
+						getMultiplyResult(number);
+						counter--;
+					}
+					number++;
+				}
+			} else {
+				showWarn();
+			}
+		}
+
+		static void showFResult(long number, int counter, String property, String property2, String property3, String property4, String property5, String property6, String property7) {
+			if (counter <= 0) {
+				System.out.println("The second parameter should be a natural number.");
+			} else if (isExclusive(property, property2)) {
+				showExclusivesWarnings(property, property2);
+			} else if (isProperty(property)) {
+				while (counter > 0) {
+					if (whichProperty(number, property) && whichProperty(number, property2) && whichProperty(number, property3) && whichProperty(number, property4) && whichProperty(number, property5) && whichProperty(number, property6) && whichProperty(number, property7)) {
+						getMultiplyResult(number);
+						counter--;
+					}
+					number++;
+				}
+			} else {
+				showWarn();
+			}
+		}
+
+	}
+
+	public static void main(String[] args) {
+
+		System.out.println("Welcome to Amazing Numbers!");
+		System.out.println("Supported requests: ");
+		System.out.println("\s - enter a natural number to know its properties;");
+		System.out.println("\s - enter two natural numbers to obtain the properties of the list:");
+		System.out.println("\t * the first parameter represents a starting number;");
+		System.out.println("\t * the second parameter shows how many consecutive numbers are to be printed;");
+		System.out.println("\s - two natural numbers and a property to search for;");
+		System.out.println("\s - two natural numbers and two properties to search for;");
+		System.out.println("\s - separate the parameters with one space;");
+		System.out.println("\s - enter 0 to exit");
+		while (loop) {
+			System.out.println("Enter a request:");
+			input = scanner.nextLine().toUpperCase().split(" ");
+			int len = input.length;
+
+			try { // if a user inputs not a natural num as a parameter
+				switch (len) {
+					case 1 -> {
+						number = Long.parseLong(input[0]);
+						showSingleNumberResult(number);
+					}
+					case 2 -> {
+						number = Long.parseLong(input[0]);
+						counter = Integer.parseInt(input[1]);
+						showSequenceNumbersResult(number, counter);
+					}
+					case 3 -> {
+						number = Long.parseLong(input[0]);
+						counter = Integer.parseInt(input[1]);
+						String property = input[2];
+						showFResult(number, counter, property);
+					}
+					case 4 -> {
+						number = Long.parseLong(input[0]);
+						counter = Integer.parseInt(input[1]);
+						String property = input[2];
+						String property2 = input[3];
+						showFResult(number, counter, property, property2);
+					}
+					case 5 -> {
+						number = Long.parseLong(input[0]);
+						counter = Integer.parseInt(input[1]);
+						String property = input[2];
+						String property2 = input[3];
+						String property3 = input[4];
+						showFResult(number, counter, property, property2, property3);
+					}
+					case 6 -> {
+						number = Long.parseLong(input[0]);
+						counter = Integer.parseInt(input[1]);
+						String property = input[2];
+						String property2 = input[3];
+						String property3 = input[4];
+						String property4 = input[5];
+						showFResult(number, counter, property, property2, property3, property4);
+					}
+					case 7 -> {
+						number = Long.parseLong(input[0]);
+						counter = Integer.parseInt(input[1]);
+						String property = input[2];
+						String property2 = input[3];
+						String property3 = input[4];
+						String property4 = input[5];
+						String property5 = input[6];
+						showFResult(number, counter, property, property2, property3, property4, property5);
+					}
+					case 8 -> {
+						number = Long.parseLong(input[0]);
+						counter = Integer.parseInt(input[1]);
+						String property = input[2];
+						String property2 = input[3];
+						String property3 = input[4];
+						String property4 = input[5];
+						String property5 = input[6];
+						String property6 = input[7];
+						showFResult(number, counter, property, property2, property3, property4, property5, property6);
+					}
+					case 9 -> {
+						number = Long.parseLong(input[0]);
+						counter = Integer.parseInt(input[1]);
+						String property = input[2];
+						String property2 = input[3];
+						String property3 = input[4];
+						String property4 = input[5];
+						String property5 = input[6];
+						String property6 = input[7];
+						String property7 = input[8];
+						showFResult(number, counter, property, property2, property3, property4, property5, property6, property7);
+					}
+					default -> throw new IllegalStateException("Unexpected value: " + len);
+				}
+			} catch (NumberFormatException e) {
+				System.out.println("Both parameters should be a natural number.");
+			}
+		}
 	}
 }
