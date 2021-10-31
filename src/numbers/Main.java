@@ -16,15 +16,17 @@ public class Main {
 	static long number;
 	static int counter;
 	static boolean loop = true;
-	static String[] propertiesArray = {"ODD", "EVEN", "SPY", "PALINDROMIC", "BUZZ", "DUCK", "GAPFUL", "SUNNY", "SQUARE", "JUMPING"};
-	static String[] propertiesArrayMinus = {"-ODD", "-EVEN", "-SPY", "-PALINDROMIC", "-BUZZ", "-DUCK", "-GAPFUL", "-SUNNY", "-SQUARE", "-JUMPING"};
+	static String[] propertiesArray = {"ODD", "EVEN", "SPY", "PALINDROMIC", "BUZZ", "DUCK", "GAPFUL", "SUNNY", "SQUARE", "JUMPING", "SAD", "HAPPY"};
+	static String[] propertiesArrayMinus = {"-ODD", "-EVEN", "-SPY", "-PALINDROMIC", "-BUZZ", "-DUCK", "-GAPFUL", "-SUNNY", "-SQUARE", "-JUMPING", "-SAD", "-HAPPY"};
 
 	static String[] evenOdd = {"EVEN", "ODD"};
 	static String[] duckSpy = {"DUCK", "SPY"};
 	static String[] sunnySquare = {"SUNNY", "SQUARE"};
+	static String[] sadHappy = {"SAD", "HAPPY"};
 	static String[] evenOddMinus = {"-EVEN", "-ODD"};
 	static String[] duckSpyMinus = {"-DUCK", "-SPY"};
 	static String[] sunnySquareMinus = {"-SUNNY", "-SQUARE"};
+	static String[] sadHappyMinus = {"-SAD", "-HAPPY"};
 
 	static String[] input;
 
@@ -42,6 +44,8 @@ public class Main {
 			System.out.println("\s sunny: " + isSunny(number));
 			System.out.println("\s square: " + isSquare(number));
 			System.out.println("\s jumping: " + isJumping(number));
+			System.out.println("\s sad: " + !isHappy(number));
+			System.out.println("\s happy: " + isHappy(number));
 		}
 
 		static void getMultiplyResult(long number) {
@@ -55,6 +59,8 @@ public class Main {
 			if (isSunny(number)) sb.append("sunny, ");
 			if (isSquare(number)) sb.append("square, ");
 			if (isJumping(number)) sb.append("jumping, ");
+			if (!isHappy(number)) sb.append("sad, ");
+			if (isHappy(number)) sb.append("happy, ");
 			if (isEven(number)) sb.append("even.");
 			else sb.append("odd.");
 			System.out.println(sb);
@@ -156,6 +162,12 @@ public class Main {
 								valid = false;
 							}
 						}
+
+						case "HAPPY" -> {
+							if (!isHappy(number)) {
+								valid = false;
+							}
+						}
 						case "EVEN" -> {
 							if (!isEven(number)) {
 								valid = false;
@@ -203,6 +215,12 @@ public class Main {
 						}
 						case "-JUMPING" -> {
 							if (isJumping(number)) {
+								valid = false;
+							}
+						}
+
+						case "-HAPPY" -> {
+							if (isHappy(number)) {
 								valid = false;
 							}
 						}
@@ -309,6 +327,33 @@ public class Main {
 				}
 			}
 			return false;
+		}
+
+		static boolean isHappy(long number) {
+			long result;
+			int sum = 0;
+			int count = 0;
+
+			while (true) {
+				while (number != 0) {
+					result = (number % 10);
+					sum += (int) Math.pow(result, 2);
+					number /= 10;
+				}
+
+				if (sum != 1) {
+					number = sum;
+					sum = 0;
+					count++;
+				} else {
+					return true;
+				}
+
+				if (count > 20) {
+					return false;
+				}
+
+			}
 		}
 
 	}
