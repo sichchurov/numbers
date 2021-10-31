@@ -17,10 +17,14 @@ public class Main {
 	static int counter;
 	static boolean loop = true;
 	static String[] propertiesArray = {"ODD", "EVEN", "SPY", "PALINDROMIC", "BUZZ", "DUCK", "GAPFUL", "SUNNY", "SQUARE", "JUMPING"};
+	static String[] propertiesArrayMinus = {"-ODD", "-EVEN", "-SPY", "-PALINDROMIC", "-BUZZ", "-DUCK", "-GAPFUL", "-SUNNY", "-SQUARE", "-JUMPING"};
 
 	static String[] evenOdd = {"EVEN", "ODD"};
 	static String[] duckSpy = {"DUCK", "SPY"};
 	static String[] sunnySquare = {"SUNNY", "SQUARE"};
+	static String[] evenOddMinus = {"-EVEN", "-ODD"};
+	static String[] duckSpyMinus = {"-DUCK", "-SPY"};
+	static String[] sunnySquareMinus = {"-SUNNY", "-SQUARE"};
 
 	static String[] input;
 
@@ -44,14 +48,14 @@ public class Main {
 			StringBuilder sb = new StringBuilder();
 			sb.append(number).append(" is ");
 			if (isSpy(number)) sb.append("spy, ");
-			if (Properties.isBuzz(number)) sb.append("buzz, ");
-			if (Properties.isDuck(number)) sb.append("duck, ");
-			if (Properties.isPalindromic(number)) sb.append("palindromic, ");
-			if (Properties.isGapful(number)) sb.append("gapful, ");
-			if (Properties.isSunny(number)) sb.append("sunny, ");
-			if (Properties.isSquare(number)) sb.append("square, ");
-			if (Properties.isJumping(number)) sb.append("jumping, ");
-			if (Properties.isEven(number)) sb.append("even.");
+			if (isBuzz(number)) sb.append("buzz, ");
+			if (isDuck(number)) sb.append("duck, ");
+			if (isPalindromic(number)) sb.append("palindromic, ");
+			if (isGapful(number)) sb.append("gapful, ");
+			if (isSunny(number)) sb.append("sunny, ");
+			if (isSquare(number)) sb.append("square, ");
+			if (isJumping(number)) sb.append("jumping, ");
+			if (isEven(number)) sb.append("even.");
 			else sb.append("odd.");
 			System.out.println(sb);
 		}
@@ -80,29 +84,30 @@ public class Main {
 		static void showFResult(long number, int counter, String[] input) {
 			if (counter <= 0) {
 				System.out.println("The second parameter should be a natural number.");
-			} else if (isExclusive(input)) {
-				showExclusivesWarnings(input);
-			} else if (isProperty(input, propertiesArray)) {
+			} else if (isExclusive(input) || isExclusiveMinus(input)) {
+				showExclusivesWarnings();
+			} else if (isProperty(input, propertiesArray, propertiesArrayMinus)) {
 				whichProperty(number, counter, input);
 			} else {
-				showWarn();
+				showWarn(input);
 			}
 		}
-
 	}
 
 	static class Properties {
 
-		static boolean isProperty(String[] input, String[] propertiesArray) {
+		static boolean isProperty(String[] input, String[] propertiesArray, String[] propertiesArrayMinus) {
 			List<String> aList = new ArrayList<>();
 			for (int i = 2; i < input.length; i++) {
 				if (!Arrays.asList(propertiesArray).contains(input[i])) {
-					return false;
+					if (!Arrays.asList(propertiesArrayMinus).contains(input[i])) {
+						return false;
+					}
 				} else {
 					aList.add(input[i]);
 				}
 			}
-			return Arrays.asList(propertiesArray).containsAll(aList);
+			return Arrays.asList(propertiesArray).containsAll(aList) || Arrays.asList(propertiesArrayMinus).containsAll(aList);
 		}
 
 		static void whichProperty(long number, int counter, String[] input) {
@@ -158,6 +163,56 @@ public class Main {
 						}
 						case "ODD" -> {
 							if (!isOdd(number)) {
+								valid = false;
+							}
+						}
+						case "-SPY" -> {
+							if (isSpy(number)) {
+								valid = false;
+							}
+						}
+						case "-BUZZ" -> {
+							if (isBuzz(number)) {
+								valid = false;
+							}
+						}
+						case "-DUCK" -> {
+							if (isDuck(number)) {
+								valid = false;
+							}
+						}
+						case "-PALINDROMIC" -> {
+							if (isPalindromic(number)) {
+								valid = false;
+							}
+						}
+						case "-GAPFUL" -> {
+							if (isGapful(number)) {
+								valid = false;
+							}
+						}
+						case "-SUNNY" -> {
+							if (isSunny(number)) {
+								valid = false;
+							}
+						}
+						case "-SQUARE" -> {
+							if (isSquare(number)) {
+								valid = false;
+							}
+						}
+						case "-JUMPING" -> {
+							if (isJumping(number)) {
+								valid = false;
+							}
+						}
+						case "-EVEN" -> {
+							if (isEven(number)) {
+								valid = false;
+							}
+						}
+						case "-ODD" -> {
+							if (isOdd(number)) {
 								valid = false;
 							}
 						}
@@ -261,26 +316,51 @@ public class Main {
 	static class Warnings {
 
 		static boolean isExclusive(String[] input) {
-			if (isProperty(input, propertiesArray)) {
-				List<String> aList = new ArrayList<>();
-				for (int i = 2; i < input.length; i++) {
-					if (Arrays.asList(evenOdd).contains(input[i])) {
-						aList.add(input[i]);
-						if (aList.containsAll(Arrays.asList(evenOdd))) {
-							return true;
-						}
+			if (!isProperty(input, propertiesArray, propertiesArrayMinus)) {
+				return false;
+			}
+			List<String> aList = new ArrayList<>();
+			for (int i = 2; i < input.length; i++) {
+				if (Arrays.asList(evenOdd).contains(input[i]) || Arrays.asList(evenOddMinus).contains(input[i])) {
+					aList.add(input[i]);
+					if (aList.containsAll(Arrays.asList(evenOdd)) || aList.containsAll(Arrays.asList(evenOddMinus))) {
+						System.out.printf("The request contains mutually exclusive properties: %s \n", aList);
+						return true;
 					}
+				}
 
-					if (Arrays.asList(duckSpy).contains(input[i])) {
-						aList.add(input[i]);
-						if (aList.containsAll(Arrays.asList(duckSpy))) {
-							return true;
-						}
+				if (Arrays.asList(duckSpy).contains(input[i]) || Arrays.asList(duckSpyMinus).contains(input[i])) {
+					aList.add(input[i]);
+					if (aList.containsAll(Arrays.asList(duckSpy)) || aList.containsAll(Arrays.asList(duckSpyMinus))) {
+						System.out.printf("The request contains mutually exclusive properties: %s \n", aList);
+						return true;
 					}
+				}
 
-					if (Arrays.asList(sunnySquare).contains(input[i])) {
-						aList.add(input[i]);
-						if (aList.containsAll(Arrays.asList(sunnySquare))) {
+				if (Arrays.asList(sunnySquare).contains(input[i]) || Arrays.asList(sunnySquareMinus).contains(input[i])) {
+					aList.add(input[i]);
+					if (aList.containsAll(Arrays.asList(sunnySquare)) || aList.containsAll(Arrays.asList(sunnySquareMinus))) {
+						System.out.printf("The request contains mutually exclusive properties: %s \n", aList);
+						return true;
+					}
+				}
+
+			}
+			return false;
+		}
+
+		static boolean isExclusiveMinus(String[] input) {
+			if (!isProperty(input, propertiesArray, propertiesArrayMinus)) {
+				return false;
+			}
+			List<String> aList = new ArrayList<>();
+			for (int i = 2; i < input.length; i++) {
+				for (String s : propertiesArray) {
+					for (String s1 : propertiesArrayMinus) {
+						if (input[i].contains(s) && input[i].contains(s1)) {
+							aList.add(s);
+							aList.add(s1);
+							System.out.printf("The request contains mutually exclusive properties: %s \n", aList);
 							return true;
 						}
 					}
@@ -288,51 +368,29 @@ public class Main {
 			}
 			return false;
 		}
-	}
 
-	static void showExclusivesWarnings(String[] input) {
-
-
-		ArrayList<String> propList = new ArrayList<>();
-
-		for (int i = 2; i < input.length; i++) {
-			if (Arrays.asList(evenOdd).contains(input[i])) {
-				propList.add(input[i]);
-
-			}
-
-			if (Arrays.asList(duckSpy).contains(input[i])) {
-				propList.add(input[i]);
-
-			}
-
-			if (Arrays.asList(sunnySquare).contains(input[i])) {
-				propList.add(input[i]);
-
-			}
+		static void showExclusivesWarnings() {
+			System.out.println("There are no numbers with these properties.");
 		}
-		System.out.printf("The request contains mutually exclusive properties: %s \n", propList);
-		System.out.println("There are no numbers with these properties.");
-	}
 
+		static void showWarn(String[] input) {
+			ArrayList<String> warnList = new ArrayList<>();
 
-	static void showWarn() {
-		ArrayList<String> warnList = new ArrayList<>();
-
-		// i = 2 because: 0 - number, 1 - counter
-		for (int i = 2; i < input.length; i++) {
-			if (!Arrays.asList(propertiesArray).contains(input[i])) {
-				warnList.add(input[i]);
+			// i = 2 because: 0 - number, 1 - counter
+			for (int i = 2; i < input.length; i++) {
+				if (!Arrays.asList(propertiesArray).contains(input[i]) && !Arrays.asList(propertiesArrayMinus).contains(input[i])) {
+					warnList.add(input[i]);
+				}
 			}
+			if (warnList.size() > 1) {
+				System.out.printf("The properties %s are wrong. \n", warnList);
+			} else {
+				System.out.printf("The property %s is wrong. \n", warnList);
+			}
+			System.out.println("Available properties: " + Arrays.toString(propertiesArray));
 		}
-		if (warnList.size() > 1) {
-			System.out.printf("The properties %s are wrong. \n", warnList);
-		} else {
-			System.out.printf("The property %s is wrong. \n", warnList);
-		}
-		System.out.println("Available properties: " + Arrays.toString(propertiesArray));
-	}
 
+	}
 
 	public static void main(String[] args) {
 
