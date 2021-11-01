@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-
 import static numbers.Main.Display.*;
 import static numbers.Main.Properties.*;
 import static numbers.Main.Warnings.*;
@@ -16,17 +15,11 @@ public class Main {
 	static long number;
 	static int counter;
 	static boolean loop = true;
-	static String[] propertiesArray = {"ODD", "EVEN", "SPY", "PALINDROMIC", "BUZZ", "DUCK", "GAPFUL", "SUNNY", "SQUARE", "JUMPING", "SAD", "HAPPY"};
-	static String[] propertiesArrayMinus = {"-ODD", "-EVEN", "-SPY", "-PALINDROMIC", "-BUZZ", "-DUCK", "-GAPFUL", "-SUNNY", "-SQUARE", "-JUMPING", "-SAD", "-HAPPY"};
+	static String[] propertiesArray = {"ODD", "EVEN", "SPY", "PALINDROMIC", "BUZZ", "DUCK", "GAPFUL", "SUNNY",
+			"SQUARE", "JUMPING", "SAD", "HAPPY"};
+	static String[] propertiesArrayMinus = {"-ODD", "-EVEN", "-SPY", "-PALINDROMIC", "-BUZZ", "-DUCK", "-GAPFUL",
+			"-SUNNY", "-SQUARE", "-JUMPING", "-SAD", "-HAPPY"};
 
-	static String[] evenOdd = {"EVEN", "ODD"};
-	static String[] duckSpy = {"DUCK", "SPY"};
-	static String[] sunnySquare = {"SUNNY", "SQUARE"};
-	static String[] sadHappy = {"SAD", "HAPPY"};
-	static String[] evenOddMinus = {"-EVEN", "-ODD"};
-	static String[] duckSpyMinus = {"-DUCK", "-SPY"};
-	static String[] sunnySquareMinus = {"-SUNNY", "-SQUARE"};
-	static String[] sadHappyMinus = {"-SAD", "-HAPPY"};
 
 	static String[] input;
 
@@ -34,35 +27,47 @@ public class Main {
 
 		static void getSingleResult(long number) {
 			System.out.println("Properties of " + number);
-			System.out.println("\s buzz: " + Properties.isBuzz(number));
-			System.out.println("\s duck: " + Properties.isDuck(number));
-			System.out.println("\s spy: " + isSpy(number));
-			System.out.println("\s palindromic: " + isPalindromic(number));
-			System.out.println("\s gapful: " + isGapful(number));
-			System.out.println("\s even: " + isEven(number));
-			System.out.println("\s odd: " + isOdd(number));
-			System.out.println("\s sunny: " + isSunny(number));
-			System.out.println("\s square: " + isSquare(number));
-			System.out.println("\s jumping: " + isJumping(number));
-			System.out.println("\s sad: " + !isHappy(number));
-			System.out.println("\s happy: " + isHappy(number));
+			System.out.println("buzz: " + Properties.isBuzz(number));
+			System.out.println("duck: " + Properties.isDuck(number));
+			System.out.println("spy: " + isSpy(number));
+			System.out.println("palindromic: " + isPalindromic(number));
+			System.out.println("gapful: " + isGapful(number));
+			System.out.println("even: " + isEven(number));
+			System.out.println("odd: " + isOdd(number));
+			System.out.println("sunny: " + isSunny(number));
+			System.out.println("square: " + isSquare(number));
+			System.out.println("jumping: " + isJumping(number));
+			System.out.println("sad: " + !isHappy(number));
+			System.out.println("happy: " + isHappy(number));
 		}
 
 		static void getMultiplyResult(long number) {
 			StringBuilder sb = new StringBuilder();
 			sb.append(number).append(" is ");
-			if (isSpy(number)) sb.append("spy, ");
-			if (isBuzz(number)) sb.append("buzz, ");
-			if (isDuck(number)) sb.append("duck, ");
-			if (isPalindromic(number)) sb.append("palindromic, ");
-			if (isGapful(number)) sb.append("gapful, ");
-			if (isSunny(number)) sb.append("sunny, ");
-			if (isSquare(number)) sb.append("square, ");
-			if (isJumping(number)) sb.append("jumping, ");
-			if (!isHappy(number)) sb.append("sad, ");
-			if (isHappy(number)) sb.append("happy, ");
-			if (isEven(number)) sb.append("even.");
-			else sb.append("odd.");
+			if (isSpy(number))
+				sb.append("spy, ");
+			if (isBuzz(number))
+				sb.append("buzz, ");
+			if (isDuck(number))
+				sb.append("duck, ");
+			if (isPalindromic(number))
+				sb.append("palindromic, ");
+			if (isGapful(number))
+				sb.append("gapful, ");
+			if (isSunny(number))
+				sb.append("sunny, ");
+			if (isSquare(number))
+				sb.append("square, ");
+			if (isJumping(number))
+				sb.append("jumping, ");
+			if (!isHappy(number))
+				sb.append("sad, ");
+			if (isHappy(number))
+				sb.append("happy, ");
+			if (isEven(number))
+				sb.append("even.");
+			else
+				sb.append("odd.");
 			System.out.println(sb);
 		}
 
@@ -77,7 +82,7 @@ public class Main {
 			}
 		}
 
-		static void showSequenceNumbersResult(long number, long counter) {
+		static void showSequenceprojectnumbersResult(long number, long counter) {
 			if (counter <= 0) {
 				System.out.println("The second parameter should be a natural number.");
 			} else {
@@ -92,7 +97,7 @@ public class Main {
 				System.out.println("The second parameter should be a natural number.");
 			} else if (isExclusive(input) || isExclusiveMinus(input)) {
 				showExclusivesWarnings();
-			} else if (isProperty(input, propertiesArray, propertiesArrayMinus)) {
+			} else if (isProperty(input)) {
 				whichProperty(number, counter, input);
 			} else {
 				showWarn(input);
@@ -102,7 +107,7 @@ public class Main {
 
 	static class Properties {
 
-		static boolean isProperty(String[] input, String[] propertiesArray, String[] propertiesArrayMinus) {
+		static boolean isProperty(String[] input) {
 			List<String> aList = new ArrayList<>();
 			for (int i = 2; i < input.length; i++) {
 				if (!Arrays.asList(propertiesArray).contains(input[i])) {
@@ -113,7 +118,8 @@ public class Main {
 					aList.add(input[i]);
 				}
 			}
-			return Arrays.asList(propertiesArray).containsAll(aList) || Arrays.asList(propertiesArrayMinus).containsAll(aList);
+			return Arrays.asList(propertiesArray).containsAll(aList)
+					|| Arrays.asList(propertiesArrayMinus).containsAll(aList);
 		}
 
 		static void whichProperty(long number, int counter, String[] input) {
@@ -162,7 +168,11 @@ public class Main {
 								valid = false;
 							}
 						}
-
+						case "SAD" -> {
+							if (isHappy(number)) {
+								valid = false;
+							}
+						}
 						case "HAPPY" -> {
 							if (!isHappy(number)) {
 								valid = false;
@@ -218,9 +228,13 @@ public class Main {
 								valid = false;
 							}
 						}
-
 						case "-HAPPY" -> {
 							if (isHappy(number)) {
+								valid = false;
+							}
+						}
+						case "-SAD" -> {
+							if (!isHappy(number)) {
 								valid = false;
 							}
 						}
@@ -352,7 +366,6 @@ public class Main {
 				if (count > 20) {
 					return false;
 				}
-
 			}
 		}
 
@@ -361,56 +374,51 @@ public class Main {
 	static class Warnings {
 
 		static boolean isExclusive(String[] input) {
-			if (!isProperty(input, propertiesArray, propertiesArrayMinus)) {
+			if (!isProperty(input)) {
 				return false;
 			}
 			List<String> aList = new ArrayList<>();
 			for (int i = 2; i < input.length; i++) {
-				if (Arrays.asList(evenOdd).contains(input[i]) || Arrays.asList(evenOddMinus).contains(input[i])) {
-					aList.add(input[i]);
-					if (aList.containsAll(Arrays.asList(evenOdd)) || aList.containsAll(Arrays.asList(evenOddMinus))) {
+				for (int j = 2; j < input.length; j++) {
+					if (input[i].equals("EVEN") && input[j].equals("ODD")
+							|| input[i].equals("SPY") && input[j].equals("DUCK")
+							|| input[i].equals("SUNNY") && input[j].equals("SQUARE")) {
+						aList.add(input[i]);
+						aList.add(input[j]);
 						System.out.printf("The request contains mutually exclusive properties: %s \n", aList);
 						return true;
 					}
 				}
-
-				if (Arrays.asList(duckSpy).contains(input[i]) || Arrays.asList(duckSpyMinus).contains(input[i])) {
-					aList.add(input[i]);
-					if (aList.containsAll(Arrays.asList(duckSpy)) || aList.containsAll(Arrays.asList(duckSpyMinus))) {
-						System.out.printf("The request contains mutually exclusive properties: %s \n", aList);
-						return true;
-					}
-				}
-
-				if (Arrays.asList(sunnySquare).contains(input[i]) || Arrays.asList(sunnySquareMinus).contains(input[i])) {
-					aList.add(input[i]);
-					if (aList.containsAll(Arrays.asList(sunnySquare)) || aList.containsAll(Arrays.asList(sunnySquareMinus))) {
-						System.out.printf("The request contains mutually exclusive properties: %s \n", aList);
-						return true;
-					}
-				}
-
 			}
 			return false;
 		}
 
 		static boolean isExclusiveMinus(String[] input) {
-			if (!isProperty(input, propertiesArray, propertiesArrayMinus)) {
+			if (!isProperty(input)) {
 				return false;
 			}
 			List<String> aList = new ArrayList<>();
 			for (int i = 2; i < input.length; i++) {
-				for (String s : propertiesArray) {
-					for (String s1 : propertiesArrayMinus) {
-						if (input[i].contains(s) && input[i].contains(s1)) {
-							aList.add(s);
-							aList.add(s1);
-							System.out.printf("The request contains mutually exclusive properties: %s \n", aList);
-							return true;
+				for (int j = 2; j < input.length; j++) {
+					if (input[i].equals("-ODD") && input[j].equals("-EVEN")) {
+						aList.add(input[i]);
+						aList.add(input[j]);
+						System.out.printf("The request contains mutually exclusive properties: %s \n", aList);
+						return true;
+					} else {
+						for (String s : propertiesArray) {
+							if (input[i].equals(s) && input[j].equals("-" + s)) {
+								aList.add(input[i]);
+								aList.add(input[j]);
+								System.out.printf("The request contains mutually exclusive properties: %s \n", aList);
+								return true;
+							}
 						}
 					}
 				}
+
 			}
+
 			return false;
 		}
 
@@ -423,7 +431,8 @@ public class Main {
 
 			// i = 2 because: 0 - number, 1 - counter
 			for (int i = 2; i < input.length; i++) {
-				if (!Arrays.asList(propertiesArray).contains(input[i]) && !Arrays.asList(propertiesArrayMinus).contains(input[i])) {
+				if (!Arrays.asList(propertiesArray).contains(input[i])
+						&& !Arrays.asList(propertiesArrayMinus).contains(input[i])) {
 					warnList.add(input[i]);
 				}
 			}
@@ -441,14 +450,14 @@ public class Main {
 
 		System.out.println("Welcome to Amazing Numbers!");
 		System.out.println("Supported requests: ");
-		System.out.println("\s - enter a natural number to know its properties;");
-		System.out.println("\s - enter two natural numbers to obtain the properties of the list:");
+		System.out.println("- enter a natural number to know its properties;");
+		System.out.println("- enter two natural numbers to obtain the properties of the list:");
 		System.out.println("\t * the first parameter represents a starting number;");
 		System.out.println("\t * the second parameter shows how many consecutive numbers are to be printed;");
-		System.out.println("\s - two natural numbers and a property to search for;");
-		System.out.println("\s - two natural numbers and two properties to search for;");
-		System.out.println("\s - separate the parameters with one space;");
-		System.out.println("\s - enter 0 to exit");
+		System.out.println("- two natural numbers and properties to search for;");
+		System.out.println("- a property preceded by minus must not be present in numbers;");
+		System.out.println("- separate the parameters with one space;");
+		System.out.println("- enter 0 to exit");
 		while (loop) {
 			System.out.println("Enter a request:");
 			input = scanner.nextLine().toUpperCase().split(" ");
@@ -461,7 +470,7 @@ public class Main {
 				} else if (len == 2) {
 					number = Long.parseLong(input[0]);
 					counter = Integer.parseInt(input[1]);
-					showSequenceNumbersResult(number, counter);
+					showSequenceprojectnumbersResult(number, counter);
 				} else {
 					number = Long.parseLong(input[0]);
 					counter = Integer.parseInt(input[1]);
