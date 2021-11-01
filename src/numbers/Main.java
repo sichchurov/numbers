@@ -400,7 +400,7 @@ public class Main {
 			List<String> aList = new ArrayList<>();
 			for (int i = 2; i < input.length; i++) {
 				for (int j = 2; j < input.length; j++) {
-					if (input[i].equals("-ODD") && input[j].equals("-EVEN")) {
+					if (input[i].equals("-ODD") && input[j].equals("-EVEN") || input[i].equals("-SAD") && input[j].equals("-HAPPY")) {
 						aList.add(input[i]);
 						aList.add(input[j]);
 						System.out.printf("The request contains mutually exclusive properties: %s \n", aList);
